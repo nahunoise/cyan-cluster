@@ -12,6 +12,9 @@ export default {
         serif: ['"Cormorant Garamond"', 'serif'],
         sans: ['Inter', 'sans-serif'],
       },
+      animation: {
+        'slow-spin': 'spin 8s linear infinite',
+      },
     },
   },
   plugins: [],
