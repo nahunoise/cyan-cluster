@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         'creation-dark': '#1b2116',
-        'creation-gold': '#c19869',
+        'creation-gold': '#c169acff',
         'creation-cream': '#e3d2b9',
       },
       fontFamily: {
