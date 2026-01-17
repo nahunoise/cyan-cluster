@@ -37,20 +37,22 @@ import Layout from '../layouts/Layout.astro';
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = (document.getElementById('email') as HTMLInputElement).value;
+    const emailInput = document.getElementById('email') as HTMLInputElement;
+    const email = emailInput.value;
 
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        // Esta es la página a donde irán tras hacer clic en el email
-        emailRedirectTo: window.location.origin + '/dashboard', 
+        // IMPORTANTE: window.location.origin detectará si es localhost o tu web real
+        emailRedirectTo: `${window.location.origin}/dashboard`, 
       },
     });
 
     if (error) {
-      messageDiv!.textContent = "Error: Solo correos invitados pueden acceder.";
+      console.error(error);
+      messageDiv!.textContent = "Error: Verifica que el correo haya sido invitado.";
     } else {
-      messageDiv!.textContent = "¡Enlace enviado! Revisa tu bandeja de entrada.";
+      messageDiv!.textContent = "¡Revisa tu correo! Te enviamos un enlace de acceso.";
     }
   });
 </script>
