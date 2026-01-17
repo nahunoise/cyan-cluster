@@ -1,64 +1,40 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-
 <Layout title="Dashboard | The Creation Society">
-  <main id="dashboard-content" class="max-w-4xl mx-auto px-6 py-12 text-creation-cream bg-creation-dark min-h-screen">
-    
-    <header class="flex justify-between items-center mb-16">
-      <div>
-        <div class="flex items-center gap-2 text-creation-gold mb-1">
-            <span class="h-1.5 w-1.5 rounded-full bg-creation-gold animate-pulse"></span>
-            <span class="text-[10px] uppercase tracking-[0.2em] font-bold">Acceso Piloto</span>
-        </div>
-        <h1 class="text-4xl font-serif italic text-creation-gold">Dashboard</h1>
-      </div>
-      <button id="logout" class="text-[10px] uppercase tracking-widest text-white/20 hover:text-creation-gold transition-colors border border-white/10 px-4 py-2 rounded-full">Cerrar Sesión</button>
+  <main id="dashboard-content" class="hidden max-w-4xl mx-auto px-6 py-12 text-creation-cream">
+    <header class="flex justify-between items-center mb-12">
+      <h1 class="text-4xl font-serif italic text-creation-gold">Dashboard</h1>
+      <button id="logout" class="text-[10px] uppercase opacity-30 hover:opacity-100 border border-white/10 px-4 py-2 rounded-full">Cerrar Sesión</button>
     </header>
-
-    <div class="bg-white/[0.02] p-10 rounded-[2.5rem] border border-white/[0.05] backdrop-blur-sm">
-      <p class="text-xl font-serif italic text-creation-gold/80 mb-4">Bienvenido al círculo interno.</p>
-      <p class="text-creation-cream/60 leading-relaxed max-w-xl">
-        Tu acceso ha sido validado correctamente. Estás dentro de la versión alfa de **The Creation Society**.
-      </p>
+    
+    <div class="bg-white/[0.02] p-10 rounded-[2.5rem] border border-white/[0.05]">
+      <p class="text-xl font-serif italic text-creation-gold/80 mb-2">Acceso Verificado.</p>
+      <p class="text-white/60">Bienvenido al área exclusiva de creadores.</p>
     </div>
-
-    </main>
+  </main>
 </Layout>
 
 <script>
   import { supabase } from '../lib/supabase';
 
-  async function checkAccess() {
-    console.log("Validando acceso en segundo plano...");
-    
-    // 1. Miramos si tiene la llave local
-    const hasBypass = localStorage.getItem('session_bypass');
-    
-    // 2. Intentamos ver si hay sesión real, pero sin bloquear el UI
+  async function protectPage() {
     const { data: { session } } = await supabase.auth.getSession();
+    const content = document.getElementById('dashboard-content');
 
-    // Si NO tiene bypass y NO hay sesión, lo sacamos
-    if (!session && hasBypass !== 'true') {
-      console.log("Acceso denegado. Redirigiendo...");
-      window.location.href = '/login';
+    if (!session) {
+      // Si no hay sesión real, al login de inmediato
+      window.location.assign('/login');
     } else {
-      console.log("Acceso confirmado.");
+      // Solo si hay sesión mostramos la web
+      content?.classList.remove('hidden');
     }
   }
 
-  // Cerrar sesión
   document.getElementById('logout')?.addEventListener('click', async () => {
-    localStorage.removeItem('session_bypass');
     await supabase.auth.signOut();
     window.location.href = '/login';
   });
 
-  // Ejecutamos la validación
-  checkAccess();
+  protectPage();
 </script>
-
-<style is:global>
-  /* Forzamos el fondo oscuro por si el CSS de Tailwind tarda en cargar */
-  :root { background-color: #050505; }
-</style>

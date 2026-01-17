@@ -1,7 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 
-// Intentamos leer con PUBLIC_ primero (estándar de Astro para cliente)
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || import.meta.env.SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || import.meta.env.SUPABASE_ANON_KEY;
+const supabaseUrl = "https://fqghlszgvpvvfbqqwaco.supabase.co";
+const supabaseAnonKey = "sb_publishable_3TwXxgh4wiOn3gdPWcXCmA_h6iNSj6T";
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);

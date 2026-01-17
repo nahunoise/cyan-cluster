@@ -3,23 +3,52 @@ import Layout from '../layouts/Layout.astro';
 ---
 <Layout title="Acceso | The Creation Society">
   <main class="max-w-md mx-auto pt-32 px-6 text-center">
-    <h1 class="text-4xl font-serif italic text-[#D4AF37] mb-4">Acceso Creadores</h1>
-    <form id="login-form" class="space-y-4">
-      <input type="email" id="email" required placeholder="tu@email.com" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl text-white outline-none focus:border-[#D4AF37]" />
-      <button type="submit" class="w-full bg-[#D4AF37] text-black py-4 rounded-2xl font-bold hover:brightness-110 transition-all">
-        Entrar al Dashboard
+    <h1 class="text-4xl font-serif italic text-creation-gold mb-4">Acceso Creadores</h1>
+    
+    <form id="login-form" class="space-y-4 text-left">
+      <div>
+        <label class="text-[10px] uppercase tracking-widest text-creation-gold/60">Correo</label>
+        <input type="email" id="email" required class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl text-white outline-none focus:border-creation-gold mt-1" />
+      </div>
+      <div>
+        <label class="text-[10px] uppercase tracking-widest text-creation-gold/60">Contraseña</label>
+        <input type="password" id="password" required class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl text-white outline-none focus:border-creation-gold mt-1" />
+      </div>
+      <button type="submit" id="btn" class="w-full bg-creation-gold text-creation-dark py-4 rounded-2xl font-bold hover:brightness-110 transition-all">
+        Entrar ahora
       </button>
+      <div id="msg" class="text-xs pt-4 text-center min-h-[30px]"></div>
     </form>
   </main>
 </Layout>
 
 <script>
-  const form = document.getElementById('login-form');
+  import { supabase } from '../lib/supabase';
 
-  form?.addEventListener('submit', (e) => {
+  const form = document.getElementById('login-form');
+  const msg = document.getElementById('msg');
+
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    console.log("Botón pulsado, guardando acceso...");
-    localStorage.setItem('session_bypass', 'true');
-    window.location.href = '/dashboard';
+    const email = (document.getElementById('email') as HTMLInputElement).value.trim();
+    const password = (document.getElementById('password') as HTMLInputElement).value;
+
+    if (msg) msg.textContent = "Verificando...";
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      console.error("Detalle del error:", error);
+      if (msg) {
+        // Esto te dirá exactamente qué falla (ej: "Invalid login credentials")
+        msg.textContent = `Error: ${error.message}`;
+        msg.style.color = "#f87171";
+      }
+    } else {
+      window.location.assign('/dashboard');
+    }
   });
 </script>
