@@ -1,69 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-
 <Layout title="Acceso | The Creation Society">
   <main class="max-w-md mx-auto pt-32 px-6 text-center">
-    <h1 class="text-4xl font-serif italic text-creation-gold mb-4">Acceso Creadores</h1>
-    <p class="text-creation-cream/60 text-sm mb-10">Solo para miembros invitados del piloto.</p>
-    
-    <form id="login-form" class="space-y-4 text-left">
-      <div>
-        <label class="text-[10px] uppercase tracking-widest text-creation-gold/60">Correo Electrónico</label>
-        <input 
-          type="email" 
-          id="email"
-          required
-          class="w-full bg-white/[0.03] border border-white/10 p-4 rounded-2xl text-creation-cream mt-2 focus:border-creation-gold outline-none transition-all placeholder:text-white/10"
-          placeholder="tu@email.com"
-        />
-      </div>
-      <button 
-        type="submit" 
-        id="submit-btn"
-        class="w-full bg-creation-gold text-creation-dark py-4 rounded-2xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-creation-gold/10"
-      >
+    <h1 class="text-4xl font-serif italic text-[#D4AF37] mb-4">Acceso Creadores</h1>
+    <form id="login-form" class="space-y-4">
+      <input type="email" id="email" required placeholder="tu@email.com" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl text-white outline-none focus:border-[#D4AF37]" />
+      <button type="submit" class="w-full bg-[#D4AF37] text-black py-4 rounded-2xl font-bold hover:brightness-110 transition-all">
         Entrar al Dashboard
       </button>
-      <div id="message" class="text-xs text-center pt-6 italic text-creation-gold/50 min-h-[40px]"></div>
     </form>
   </main>
 </Layout>
 
 <script>
-  import { supabase } from '../lib/supabase';
+  const form = document.getElementById('login-form');
 
-  const form = document.getElementById('login-form') as HTMLFormElement;
-  const messageDiv = document.getElementById('message');
-  const btn = document.getElementById('submit-btn') as HTMLButtonElement;
-
-  form?.addEventListener('submit', async (e) => {
+  form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    btn.disabled = true;
-    btn.textContent = "Verificando...";
-    
-    const email = (document.getElementById('email') as HTMLInputElement).value;
-
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: `${window.location.origin}/dashboard`, 
-      },
-    });
-
-    if (error) {
-      console.error(error);
-      messageDiv!.textContent = "Error: Verifica que tu correo esté invitado.";
-      btn.disabled = false;
-      btn.textContent = "Entrar al Dashboard";
-    } else {
-      // Guardamos bandera temporal para acceso inmediato
-      localStorage.setItem('creation_access', 'true');
-      messageDiv!.textContent = "Identidad confirmada. Redirigiendo...";
-      
-      setTimeout(() => {
-        window.location.assign('/dashboard');
-      }, 800);
-    }
+    console.log("Botón pulsado, guardando acceso...");
+    localStorage.setItem('session_bypass', 'true');
+    window.location.href = '/dashboard';
   });
 </script>

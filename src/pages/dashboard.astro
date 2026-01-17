@@ -2,68 +2,63 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Acceso | The Creation Society">
-  <main class="max-w-md mx-auto pt-32 px-6 text-center">
-    <h1 class="text-4xl font-serif italic text-creation-gold mb-4">Acceso Creadores</h1>
-    <p class="text-creation-cream/60 text-sm mb-10">Solo para miembros invitados del piloto.</p>
+<Layout title="Dashboard | The Creation Society">
+  <main id="dashboard-content" class="max-w-4xl mx-auto px-6 py-12 text-creation-cream bg-creation-dark min-h-screen">
     
-    <form id="login-form" class="space-y-4 text-left">
+    <header class="flex justify-between items-center mb-16">
       <div>
-        <label class="text-[10px] uppercase tracking-widest text-creation-gold/60">Correo Electrónico</label>
-        <input 
-          type="email" 
-          id="email"
-          required
-          class="w-full bg-white/[0.03] border border-white/10 p-4 rounded-2xl text-creation-cream mt-2 focus:border-creation-gold outline-none transition-all placeholder:text-white/10"
-          placeholder="tu@email.com"
-        />
+        <div class="flex items-center gap-2 text-creation-gold mb-1">
+            <span class="h-1.5 w-1.5 rounded-full bg-creation-gold animate-pulse"></span>
+            <span class="text-[10px] uppercase tracking-[0.2em] font-bold">Acceso Piloto</span>
+        </div>
+        <h1 class="text-4xl font-serif italic text-creation-gold">Dashboard</h1>
       </div>
-      <button 
-        type="submit" 
-        id="submit-btn"
-        class="w-full bg-creation-gold text-creation-dark py-4 rounded-2xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-creation-gold/10"
-      >
-        Entrar al Dashboard
-      </button>
-      <div id="message" class="text-xs text-center pt-6 italic text-creation-gold/50 min-h-[40px]"></div>
-    </form>
-  </main>
+      <button id="logout" class="text-[10px] uppercase tracking-widest text-white/20 hover:text-creation-gold transition-colors border border-white/10 px-4 py-2 rounded-full">Cerrar Sesión</button>
+    </header>
+
+    <div class="bg-white/[0.02] p-10 rounded-[2.5rem] border border-white/[0.05] backdrop-blur-sm">
+      <p class="text-xl font-serif italic text-creation-gold/80 mb-4">Bienvenido al círculo interno.</p>
+      <p class="text-creation-cream/60 leading-relaxed max-w-xl">
+        Tu acceso ha sido validado correctamente. Estás dentro de la versión alfa de **The Creation Society**.
+      </p>
+    </div>
+
+    </main>
 </Layout>
 
 <script>
   import { supabase } from '../lib/supabase';
 
-  const form = document.getElementById('login-form') as HTMLFormElement;
-  const messageDiv = document.getElementById('message');
-  const btn = document.getElementById('submit-btn') as HTMLButtonElement;
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    btn.disabled = true;
-    btn.textContent = "Verificando...";
+  async function checkAccess() {
+    console.log("Validando acceso en segundo plano...");
     
-    const email = (document.getElementById('email') as HTMLInputElement).value;
+    // 1. Miramos si tiene la llave local
+    const hasBypass = localStorage.getItem('session_bypass');
+    
+    // 2. Intentamos ver si hay sesión real, pero sin bloquear el UI
+    const { data: { session } } = await supabase.auth.getSession();
 
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: `${window.location.origin}/dashboard`, 
-      },
-    });
-
-    if (error) {
-      console.error(error);
-      messageDiv!.textContent = "Error: Verifica que tu correo esté invitado.";
-      btn.disabled = false;
-      btn.textContent = "Entrar al Dashboard";
+    // Si NO tiene bypass y NO hay sesión, lo sacamos
+    if (!session && hasBypass !== 'true') {
+      console.log("Acceso denegado. Redirigiendo...");
+      window.location.href = '/login';
     } else {
-      // Guardamos bandera temporal para acceso inmediato
-      localStorage.setItem('creation_access', 'true');
-      messageDiv!.textContent = "Identidad confirmada. Redirigiendo...";
-      
-      setTimeout(() => {
-        window.location.assign('/dashboard');
-      }, 800);
+      console.log("Acceso confirmado.");
     }
+  }
+
+  // Cerrar sesión
+  document.getElementById('logout')?.addEventListener('click', async () => {
+    localStorage.removeItem('session_bypass');
+    await supabase.auth.signOut();
+    window.location.href = '/login';
   });
+
+  // Ejecutamos la validación
+  checkAccess();
 </script>
+
+<style is:global>
+  /* Forzamos el fondo oscuro por si el CSS de Tailwind tarda en cargar */
+  :root { background-color: #050505; }
+</style>
