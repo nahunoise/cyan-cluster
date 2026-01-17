@@ -9,10 +9,40 @@ import Hero from '../components/Hero.astro';
     <Hero />
 
     <section class="reveal text-center space-y-8 py-20">
-      <p class="text-creation-cream/70 text-sm">Las ideas no valen nada es por eso que aquí no vienes a consumir teoría.</p>
+      <p class="text-creation-cream/70 text-sm">Las ideas no valen nada. Por eso que aquí no vienes a consumir teoría.</p>
       <p class="text-creation-gold text-[20px] md:text-L mb-6 uppercase tracking-widest font-sans px-4">VIENES A HACER</p>
+      <p class="text-creation-cream/70 text-sm">Generar impacto en cualquier de estos retos sociales y ambientales:</p>
+  </section> <div class="relative overflow-hidden w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] pt-2 pb-10 bg-transparent">
+      <div class="flex w-max animate-scroll hover:[animation-play-state:paused]">
+        {[1, 2].map(() => (
+          <div class="flex gap-4 px-2">
+            {[
+             { label: "Migración y territorio", color: "border-blue-500/50 bg-blue-500/10 text-blue-300" },
+              { label: "Empleo juvenil y poblaciones vulnerables", color: "border-green-500/50 bg-green-500/10 text-green-300" },
+              { label: "Derechos sexuales reproductivos", color: "border-purple-500/50 bg-purple-500/10 text-purple-300" },
+              { label: "Salud mental", color: "border-pink-500/50 bg-pink-500/10 text-pink-300" },
+              { label: "Desigualdad económica e inclusión financiera", color: "border-yellow-500/50 bg-yellow-500/10 text-yellow-300" },
+              { label: "Digital Segregation", color: "border-indigo-500/50 bg-indigo-500/10 text-indigo-300" },
+              { label: "Pérdida de la biodiversidad", color: "border-emerald-500/50 bg-emerald-500/10 text-emerald-300" },
+              { label: "Contaminación de plástico", color: "border-cyan-500/50 bg-cyan-500/10 text-cyan-300" },
+              { label: "Desastres naturales por la crisis climática", color: "border-orange-500/50 bg-orange-500/10 text-orange-300" },
+              { label: "Escasez de Agua dulce y potable", color: "border-teal-500/50 bg-teal-500/10 text-teal-300" },
+              
+            ].map((item) => (
+              <span class={`whitespace-nowrap px-6 py-2 rounded-full border ${item.color} text-sm font-medium tracking-wide`}>
+                {item.label}
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <section class="reveal text-center space-y-8 pb-20">
+
       <p class="text-creation-cream/80 text-sm leading-relaxed">
-        Trabajamos con herramientas modernas con la IA, No-Code y Low-Code para convertir ideas en MVPs funcionales en semanas, no en meses.
+Si tu emprendimiento o proyecto enfrenta alguno de estos problemas te puedes unir. 
+ Trabajamos con herramientas modernas con la IA, No-Code y Low-Code para convertir ideas en MVPs funcionales en semanas, no en meses.
       </p>
 
       <div class="py-10 space-y-2">
@@ -22,7 +52,7 @@ import Hero from '../components/Hero.astro';
       </div>
 
       <div class="text-left space-y-4 max-w-md mx-auto">
-        <p class="text-creation-cream text-sm">Una founders que quieran:</p>
+        <p class="text-creation-cream text-sm">Para founders que quieran:</p>
         <ul class="text-creation-cream/80 text-sm space-y-2 list-none">
           <li>• Validar ideas rápidamente</li>
           <li>• Construir MVPs funcionales para validar hipótesis</li>
@@ -60,6 +90,16 @@ import Hero from '../components/Hero.astro';
 <li>• 1 sesión mensual de demo y revisión de avances</li>
 <li>• Acceso a recursos técnicos compartidos</li>
 <li>• Soporte técnico asíncrono de la comunidad</li>
+
+<section class="reveal py-20 space-y-16">
+      <div class="text-center space-y-6">
+        <h4 class="text-creation-gold font-bold uppercase tracking-tighter text-sm">Aporte</h4>
+        <ul class="text-creation-cream/70 text-sm space-y-1">
+<li>• Una clase maestra de tu lado que ayude a la comunidad a seguir creando.</li>
+<li>• Una  mentoría mensual para miembros de la comunidad.</li>
+<li>• Asistencia a una reunión mensual de la comunidad para demos y showcase</li>
+
+
 
 
         </ul>
@@ -111,6 +151,18 @@ import Hero from '../components/Hero.astro';
 </Layout>
 
 <style is:global>
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .animate-scroll {
+    animation: scroll 30s linear infinite;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
   .reveal {
     opacity: 0;
     transform: translateY(30px);
