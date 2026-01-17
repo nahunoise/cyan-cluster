@@ -1,0 +1,14 @@
+---
+// src/pages/api/auth/callback.astro
+// Esta página no muestra nada, solo procesa el login
+---
+<script>
+  import { supabase } from '../../../lib/supabase';
+
+  // Al cargar, Supabase detecta el token en la URL y crea la sesión
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_IN') {
+      window.location.assign('/dashboard');
+    }
+  });
+</script>

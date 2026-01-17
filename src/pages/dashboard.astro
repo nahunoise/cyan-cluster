@@ -1,34 +1,33 @@
 ---
-
-
-// src/pages/dashboard.astro
 import Layout from '../layouts/Layout.astro';
 import { supabase } from '../lib/supabase';
 
-// 1. Obtenemos la sesión actual
+// 1. Verificación rápida del lado del servidor
 const { data: { session } } = await supabase.auth.getSession();
 
-// 2. Si no hay sesión, lo mandamos al login
-if (!session) {
-  return Astro.redirect('/login');
-}
-
+// Si no hay sesión, Astro intentará redirigir, 
+// pero dejamos que el script del cliente maneje el flujo de Magic Link si es necesario.
 ---
 
 <Layout title="Dashboard | The Creation Society">
-  <main class="max-w-4xl mx-auto px-6 py-12 font-sans text-creation-cream">
+  <main id="dashboard-main" class="hidden max-w-4xl mx-auto px-6 py-12 font-sans text-creation-cream">
     
     <header class="mb-16 space-y-4">
-      <div class="flex items-center gap-2 text-creation-gold mb-2">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-creation-gold opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-creation-gold"></span>
-        </span>
-        <span class="text-[10px] uppercase tracking-[0.2em] font-bold">Piloto v1.0</span>
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-2 text-creation-gold">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-creation-gold opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-creation-gold"></span>
+          </span>
+          <span class="text-[10px] uppercase tracking-[0.2em] font-bold">Piloto v1.0</span>
+        </div>
+        <button id="logout-btn" class="text-[10px] uppercase tracking-widest text-creation-cream/30 hover:text-creation-gold transition-colors">
+          Cerrar Sesión
+        </button>
       </div>
       <h1 class="text-4xl md:text-5xl font-serif italic text-creation-gold">News</h1>
       <p class="text-lg text-creation-cream/70 leading-relaxed max-w-2xl">
-        Has sido seleccionado como parte de este primer piloto <strong class="text-creation-cream">The Creation Society</strong>. Para mí es un honor que estés aquí. He seleccionado a personas que conozco y que admiro: amigos, ex colegas, socios y hasta mi hermano.
+        Has sido seleccionado como parte de este primer piloto <strong class="text-creation-cream">The Creation Society</strong>. Para mí es un honor que estés aquí. He seleccionado a personas que conozco y que admiro.
       </p>
     </header>
 
@@ -74,7 +73,6 @@ if (!session) {
 
     <section class="space-y-16">
       <h2 class="text-2xl font-serif italic text-creation-gold mb-10">Rutas de Aprendizaje</h2>
-      
       <div class="aspect-video w-full bg-white/[0.02] rounded-[2rem] flex items-center justify-center group cursor-pointer overflow-hidden relative shadow-inner">
         <div class="absolute inset-0 bg-gradient-to-t from-creation-dark/80 to-transparent"></div>
         <div class="z-10 flex flex-col items-center gap-4">
@@ -84,9 +82,7 @@ if (!session) {
             <span class="text-creation-cream/60 text-xs tracking-widest uppercase font-sans group-hover:text-creation-gold transition-colors">Video Presentación</span>
         </div>
       </div>
-
       <div class="divide-y divide-white/[0.05]">
-        
         <details class="group py-8" open>
           <summary class="list-none cursor-pointer flex justify-between items-center">
             <div>
@@ -115,33 +111,6 @@ if (!session) {
             </div>
           </div>
         </details>
-
-        <details class="group py-8">
-          <summary class="list-none cursor-pointer flex justify-between items-center">
-            <div>
-              <h3 class="text-2xl font-bold text-creation-cream italic group-hover:text-creation-gold transition-colors">IMPACT PATH</h3>
-              <p class="text-[10px] text-creation-gold/50 uppercase tracking-[0.1em] mt-1">Impacto Social y Ambiental</p>
-            </div>
-            <span class="text-creation-gold/30 text-xl group-open:rotate-180 transition-transform">↓</span>
-          </summary>
-          <div class="pt-6">
-             <p class="text-sm text-creation-cream/40 italic">Módulos de Teoría de Cambio y Métricas de Impacto desbloqueándose pronto...</p>
-          </div>
-        </details>
-
-        <details class="group py-8">
-          <summary class="list-none cursor-pointer flex justify-between items-center">
-            <div>
-              <h3 class="text-2xl font-bold text-creation-cream italic group-hover:text-creation-gold transition-colors">FOUNDER PATH</h3>
-              <p class="text-[10px] text-creation-gold/50 uppercase tracking-[0.1em] mt-1">Mindset y Tracción</p>
-            </div>
-            <span class="text-creation-gold/30 text-xl group-open:rotate-180 transition-transform">↓</span>
-          </summary>
-          <div class="pt-6">
-            <p class="text-sm text-creation-cream/40 italic">Fundamentos de validación rápida.</p>
-          </div>
-        </details>
-
       </div>
     </section>
 
@@ -155,12 +124,34 @@ if (!session) {
   </main>
 </Layout>
 
+<script>
+  import { supabase } from '../lib/supabase';
+
+  // Función para manejar el acceso
+  async function handleAccess() {
+    const { data: { session } } = await supabase.auth.getSession();
+    const mainContent = document.getElementById('dashboard-main');
+
+    if (!session) {
+      // Si no hay sesión, regresamos al login
+      window.location.assign('/login');
+    } else {
+      // Si hay sesión, mostramos la interfaz
+      mainContent?.classList.remove('hidden');
+    }
+  }
+
+  // Manejar el botón de cerrar sesión
+  document.getElementById('logout-btn')?.addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    window.location.assign('/login');
+  });
+
+  // Ejecutar al cargar
+  handleAccess();
+</script>
+
 <style is:global>
-  /* Ocultar flecha nativa de details */
-  summary::-webkit-details-marker {
-    display: none;
-  }
-  details summary {
-    list-style: none;
-  }
+  summary::-webkit-details-marker { display: none; }
+  details summary { list-style: none; }
 </style>
