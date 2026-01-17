@@ -1,0 +1,166 @@
+---
+
+
+// src/pages/dashboard.astro
+import Layout from '../layouts/Layout.astro';
+import { supabase } from '../lib/supabase';
+
+// 1. Obtenemos la sesión actual
+const { data: { session } } = await supabase.auth.getSession();
+
+// 2. Si no hay sesión, lo mandamos al login
+if (!session) {
+  return Astro.redirect('/login');
+}
+
+---
+
+<Layout title="Dashboard | The Creation Society">
+  <main class="max-w-4xl mx-auto px-6 py-12 font-sans text-creation-cream">
+    
+    <header class="mb-16 space-y-4">
+      <div class="flex items-center gap-2 text-creation-gold mb-2">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-creation-gold opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-creation-gold"></span>
+        </span>
+        <span class="text-[10px] uppercase tracking-[0.2em] font-bold">Piloto v1.0</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-serif italic text-creation-gold">News</h1>
+      <p class="text-lg text-creation-cream/70 leading-relaxed max-w-2xl">
+        Has sido seleccionado como parte de este primer piloto <strong class="text-creation-cream">The Creation Society</strong>. Para mí es un honor que estés aquí. He seleccionado a personas que conozco y que admiro: amigos, ex colegas, socios y hasta mi hermano.
+      </p>
+    </header>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+      <div class="bg-white/[0.03] p-8 rounded-3xl">
+        <h3 class="text-[10px] uppercase tracking-widest text-creation-gold/60 mb-6">Tu Progreso</h3>
+        <div class="w-full bg-white/5 h-1 rounded-full overflow-hidden">
+          <div class="bg-creation-gold h-full w-[15%] shadow-[0_0_10px_rgba(212,175,55,0.5)]"></div>
+        </div>
+        <p class="text-[11px] mt-4 text-creation-cream/40">15% completado — Sigue así, builder.</p>
+      </div>
+
+      <div class="bg-white/[0.03] p-8 rounded-3xl">
+        <h3 class="text-[10px] uppercase tracking-widest text-creation-gold/60 mb-6">Próximo en Vivo</h3>
+        <div class="flex justify-between items-end">
+          <div>
+            <p class="text-base font-medium">Kickoff Session</p>
+            <p class="text-xs text-creation-cream/40 mt-1">Jueves, 19:00 PM</p>
+          </div>
+          <a href="#" class="text-creation-gold text-xs font-bold hover:underline underline-offset-8 transition-all">
+            Streaming Link →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-24 px-4">
+       <h3 class="text-[10px] uppercase tracking-widest text-creation-gold/60 mb-8">Leaderboard</h3>
+       <div class="space-y-4">
+         {[
+           { name: "Nahun S.", points: "1250 pts", rank: "1" },
+           { name: "Tu Nombre", points: "450 pts", rank: "12" },
+         ].map(user => (
+           <div class="flex justify-between items-center py-2 group">
+             <span class="text-sm text-creation-cream/80 group-hover:text-creation-cream transition-colors">
+                <span class="text-creation-gold/40 mr-4 font-mono">0{user.rank}</span> {user.name}
+             </span>
+             <span class="text-[10px] font-mono text-creation-cream/20">{user.points}</span>
+           </div>
+         ))}
+       </div>
+    </section>
+
+    <section class="space-y-16">
+      <h2 class="text-2xl font-serif italic text-creation-gold mb-10">Rutas de Aprendizaje</h2>
+      
+      <div class="aspect-video w-full bg-white/[0.02] rounded-[2rem] flex items-center justify-center group cursor-pointer overflow-hidden relative shadow-inner">
+        <div class="absolute inset-0 bg-gradient-to-t from-creation-dark/80 to-transparent"></div>
+        <div class="z-10 flex flex-col items-center gap-4">
+            <div class="w-16 h-16 rounded-full bg-creation-gold/10 flex items-center justify-center group-hover:bg-creation-gold/20 transition-all">
+                <div class="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-creation-gold border-b-[8px] border-b-transparent ml-1"></div>
+            </div>
+            <span class="text-creation-cream/60 text-xs tracking-widest uppercase font-sans group-hover:text-creation-gold transition-colors">Video Presentación</span>
+        </div>
+      </div>
+
+      <div class="divide-y divide-white/[0.05]">
+        
+        <details class="group py-8" open>
+          <summary class="list-none cursor-pointer flex justify-between items-center">
+            <div>
+              <h3 class="text-2xl font-bold text-creation-cream italic group-hover:text-creation-gold transition-colors">CREATION PATH</h3>
+              <p class="text-[10px] text-creation-gold/50 uppercase tracking-[0.1em] mt-1">IA, No-Code & Low-Code</p>
+            </div>
+            <span class="text-creation-gold/30 text-xl group-open:rotate-180 transition-transform">↓</span>
+          </summary>
+          <div class="pt-10 space-y-10">
+            <div>
+              <h4 class="text-creation-gold/80 text-[11px] font-bold uppercase tracking-widest mb-6">Vol. 1 — Web</h4>
+              <div class="grid grid-cols-1 gap-1">
+                <button class="flex items-center justify-between p-4 hover:bg-white/[0.03] rounded-xl text-sm transition-all text-left group/item">
+                  <span class="text-creation-cream/70 group-hover/item:text-creation-cream">01. ¿Qué significa ser builder?</span>
+                  <span class="text-[10px] text-creation-gold/20 uppercase">3:45</span>
+                </button>
+                <button class="flex items-center justify-between p-4 hover:bg-white/[0.03] rounded-xl text-sm transition-all text-left group/item">
+                  <span class="text-creation-gold font-bold italic underline decoration-creation-gold/20">02. Clase Clave: Astro Framework</span>
+                  <span class="bg-creation-gold/10 text-creation-gold text-[9px] px-2 py-1 rounded">CORE</span>
+                </button>
+                <button class="flex items-center justify-between p-4 opacity-30 rounded-xl text-sm text-left">
+                  <span>03. Desplegar en Vercel</span>
+                  <span>🔒</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="group py-8">
+          <summary class="list-none cursor-pointer flex justify-between items-center">
+            <div>
+              <h3 class="text-2xl font-bold text-creation-cream italic group-hover:text-creation-gold transition-colors">IMPACT PATH</h3>
+              <p class="text-[10px] text-creation-gold/50 uppercase tracking-[0.1em] mt-1">Impacto Social y Ambiental</p>
+            </div>
+            <span class="text-creation-gold/30 text-xl group-open:rotate-180 transition-transform">↓</span>
+          </summary>
+          <div class="pt-6">
+             <p class="text-sm text-creation-cream/40 italic">Módulos de Teoría de Cambio y Métricas de Impacto desbloqueándose pronto...</p>
+          </div>
+        </details>
+
+        <details class="group py-8">
+          <summary class="list-none cursor-pointer flex justify-between items-center">
+            <div>
+              <h3 class="text-2xl font-bold text-creation-cream italic group-hover:text-creation-gold transition-colors">FOUNDER PATH</h3>
+              <p class="text-[10px] text-creation-gold/50 uppercase tracking-[0.1em] mt-1">Mindset y Tracción</p>
+            </div>
+            <span class="text-creation-gold/30 text-xl group-open:rotate-180 transition-transform">↓</span>
+          </summary>
+          <div class="pt-6">
+            <p class="text-sm text-creation-cream/40 italic">Fundamentos de validación rápida.</p>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <footer class="mt-40 mb-10 text-center">
+       <p class="text-[10px] uppercase tracking-[0.3em] text-creation-cream/20 italic leading-loose">
+         Build with purpose. <br/>
+         The Creation Society 2025
+       </p>
+    </footer>
+
+  </main>
+</Layout>
+
+<style is:global>
+  /* Ocultar flecha nativa de details */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  details summary {
+    list-style: none;
+  }
+</style>
