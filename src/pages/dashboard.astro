@@ -1,40 +1,229 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
+
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
 <Layout title="Dashboard | The Creation Society">
-  <main id="dashboard-content" class="hidden max-w-4xl mx-auto px-6 py-12 text-creation-cream">
-    <header class="flex justify-between items-center mb-12">
-      <h1 class="text-4xl font-serif italic text-creation-gold">Dashboard</h1>
-      <button id="logout" class="text-[10px] uppercase opacity-30 hover:opacity-100 border border-white/10 px-4 py-2 rounded-full">Cerrar Sesión</button>
-    </header>
+  <main id="dashboard-content" class="hidden max-w-7xl mx-auto px-6 pt-10 pb-20 text-creation-cream">
     
-    <div class="bg-white/[0.02] p-10 rounded-[2.5rem] border border-white/[0.05]">
-      <p class="text-xl font-serif italic text-creation-gold/80 mb-2">Acceso Verificado.</p>
-      <p class="text-white/60">Bienvenido al área exclusiva de creadores.</p>
+    <nav class="flex justify-between items-center mb-10 border-b border-white/5 pb-6">
+      <div class="flex items-center gap-12">
+        <h1 class="text-2xl font-serif italic text-creation-gold">The Creation Society</h1>
+        <div class="flex gap-6">
+          <button class="path-tab active" data-path="inicio">Inicio</button>
+          <button class="path-tab" data-path="creation">Creation</button>
+          <button class="path-tab" data-path="impact">Impact</button>
+          <button class="path-tab" data-path="founder">Founder</button>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://discord.gg/y2BVDrj6 " target="_blank" class="text-[10px] bg-[#5865F2] text-white px-4 py-2 rounded-full font-bold hover:brightness-110 transition-all flex items-center gap-2">
+            DISCORD LIVE
+        </a>
+        <button id="logout" class="text-[10px] uppercase border border-white/10 px-4 py-2 rounded-full hover:bg-white/5 transition-all">Salir</button>
+      </div>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <div class="lg:col-span-8 space-y-6">
+        <div class="rounded-3xl border border-white/10 overflow-hidden shadow-2xl bg-black aspect-video">
+          <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="UIByRox2g6k"></div>
+        </div>
+        
+        <div class="space-y-4">
+          <h2 id="v-title" class="text-3xl font-serif italic text-creation-gold">Bienvenida</h2>
+          <div id="v-desc" class="text-white/50 text-sm max-w-2xl leading-relaxed italic">Selecciona una clase para comenzar a construir.</div>
+          
+          <div id="v-resources" class="pt-6 border-t border-white/5 hidden">
+            <p class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold mb-4">Recursos de la sesión</p>
+            <div id="resources-list" class="flex flex-wrap gap-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-4 space-y-6">
+        <div class="bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden flex flex-col max-h-[450px]">
+          <div class="p-4 border-b border-white/5 bg-white/[0.02]">
+            <p id="path-label" class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold">Contenido Actual</p>
+          </div>
+          <div id="path-container" class="overflow-y-auto p-3 space-y-2 custom-scrollbar"></div>
+        </div>
+
+        <div class="bg-white/[0.02] border border-white/5 p-6 rounded-3xl">
+          <h3 class="text-creation-gold font-serif italic text-lg mb-4">Próximos Eventos</h3>
+          <div class="space-y-4">
+            <div class="flex items-center gap-4 border-l border-creation-gold/30 pl-3">
+              <div class="text-left">
+                <p class="text-creation-gold text-[9px] font-bold uppercase leading-none">ENE 25</p>
+                <p class="text-[11px] text-white/80 mt-1">Kickoff Piloto</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 border-l border-white/10 pl-3 opacity-60">
+              <div class="text-left">
+                <p class="text-white text-[9px] font-bold uppercase leading-none">FEB 05</p>
+                <p class="text-[11px] text-white/80 mt-1">Sesión Destrabe</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 </Layout>
 
 <script>
   import { supabase } from '../lib/supabase';
+  import Plyr from 'plyr';
 
-  async function protectPage() {
-    const { data: { session } } = await supabase.auth.getSession();
-    const content = document.getElementById('dashboard-content');
+  const content = {
+    inicio: [
+        { 
+            title: 'Bienvenida', 
+            desc: 'Has sido seleccionado como parte de este primer piloto The Creation Society, para mi es un honor que estés aquí. He seleccionado a personas que conozco y que admiro. Entre ellos hay de todo, desde amigos, ex colegas de trabajo, universidad, socios y hasta mi hermano. Espero que podamos crear juntos productos increíbles que generen un impacto positivo en el mundo.', 
+            videoId: 'UIByRox2g6k',
+            
+        }
+    ],
+    creation: [
+        { 
+            title: 'Setup Builders para pagina web', 
+            desc: 'Qué es una web (como producto, no como página). Instalación de <b>Visual Studio Code</b>.', 
+            videoId: 'VIDE_ID_CR1',
+            links: [
+                { label: 'Descargar VS Code', url: 'https://code.visualstudio.com/' },
+                
+            ]
+        },
+        { title: 'Astro Framework', desc: 'Primeros pasos con Astro.', videoId: 'VIDEO_ID_CR2' },
+        { title: 'GitHub', desc: 'Nuestro repositorio central.', videoId: 'VIDEO_ID_CR2' },
+        { title: 'Vercel', desc: 'Nuestro conector de despliegue.', videoId: 'VIDEO_ID_CR2' },
+        { title: 'IA + Código', desc: 'Jugar con prompts avanzados.', videoId: 'VIDEO_ID_CR3' },
+        { title: 'Vol.1 Web: Landing lista', desc: 'Solo importa lo que se lanza.', videoId: 'VIDEO_ID_CR3' },
+        { title: 'Vol.2 Web App: Lógica y DB', desc: 'Si hay usuarios, hay producto.', videoId: 'VIDEO_ID_CR3' },
+        { title: 'Vol.3 Automatización', desc: 'Zapier, Make y n8n.', videoId: 'VIDEO_ID_CR3' },
+        { title: 'Vol.4 Voz + IA', desc: 'Voice bots y modelos de audio.', videoId: 'VIDEO_ID_CR3' },
+        { title: 'Vol.5 Integraciones', desc: 'APIs, pagos y analítica.', videoId: 'VIDEO_ID_CR3' },
+    ],
+    impact: [
+        { title: 'Fundamentos', desc: 'Impacto social real.', videoId: 'VIDEO_ID_IM1' },
+        { title: 'Elegir el problema', desc: 'Migración, empleo, salud, clima.', videoId: 'VIDEO_ID_IM2' },
+        { title: 'Ama el problema', desc: 'Escribir un problem statement en 3 frases.', videoId: 'VIDEO_ID_IM3' },  
+        { title: 'Población objetivo', desc: 'Quién sufre qué y cómo.', videoId: 'VIDEO_ID_IM3' },  
+        { title: 'Errores típicos', desc: 'Fallas al definir problemas sociales.', videoId: 'VIDEO_ID_IM3' }, 
+        { title: 'Design Research', desc: 'Escuchar a las personas rápido.', videoId: 'VIDEO_ID_IM3' }, 
+        { title: 'Teoría de cambio', desc: 'Explicada para founders.', videoId: 'VIDEO_ID_IM3' }, 
+        { title: 'Diseñar soluciones', desc: 'Asegúrate de no dañar más de lo que ayudas.', videoId: 'VIDEO_ID_IM3' }, 
+        { title: 'Métricas de impacto', desc: 'Diferencia con métricas de negocio.', videoId: 'VIDEO_ID_IM3' }, 
+        { title: 'Testear impacto', desc: 'Experimento sencillo para tu MVP.', videoId: 'VIDEO_ID_IM3' },
+        { title: 'Ética y riesgos', desc: 'Proyectos con poblaciones vulnerables.', videoId: 'VIDEO_ID_IM3' },
+    ],
+    founder: [
+        { title: 'Mindset Builder', desc: 'Mentalidad de creador constante.', videoId: 'VIDEO_ID_FO1' },
+        { title: 'Productividad', desc: 'Enfocarte en lo que realmente importa.', videoId: 'VIDEO_ID_FO2' },
+        { title: 'Gestión de tiempo', desc: 'Técnicas para optimizar tu ejecución.', videoId: 'VIDEO_ID_FO3' },  
+        { title: 'Networking efectivo', desc: 'Relaciones valiosas en la industria.', videoId: 'VIDEO_ID_FO3' },  
+        { title: 'Liderazgo y equipo', desc: 'Construir equipos efectivos.', videoId: 'VIDEO_ID_FO3' }, 
+        { title: 'Resiliencia', desc: 'Aprender de los errores.', videoId: 'VIDEO_ID_FO3' }, 
+        { title: 'Comunicación y pitch', desc: 'Presentar tu idea convincentemente.', videoId: 'VIDEO_ID_FO3' }, 
+        { title: 'Estrategias de crecimiento', desc: 'Tácticas para escalar.', videoId: 'VIDEO_ID_FO3' }, 
+        { title: 'Finanzas básicas', desc: 'Gestión financiera para startups.', videoId: 'VIDEO_ID_FO3' }, 
+        { title: 'Salud mental', desc: 'Cuidar de ti mientras construyes.', videoId: 'VIDEO_ID_FO3' },
+    ],
+  };
 
-    if (!session) {
-      // Si no hay sesión real, al login de inmediato
-      window.location.assign('/login');
+  let player;
+
+  window.playVideo = (path, idx) => {
+    const item = content[path][idx];
+    player.source = {
+      type: 'video',
+      sources: [{ src: item.videoId, provider: 'youtube' }]
+    };
+    player.play();
+
+    // Actualización de contenidos con Soporte HTML
+    document.getElementById('v-title').innerText = item.title;
+    document.getElementById('v-desc').innerHTML = item.desc;
+
+    // Lógica de Recursos/Links
+    const resourcesSection = document.getElementById('v-resources');
+    const resourcesList = document.getElementById('resources-list');
+    
+    if (item.links && item.links.length > 0) {
+        resourcesSection.classList.remove('hidden');
+        resourcesList.innerHTML = item.links.map(l => `
+            <a href="${l.url}" target="_blank" class="text-[10px] bg-white/5 border border-white/10 text-creation-gold px-4 py-2 rounded-full hover:bg-creation-gold hover:text-black transition-all font-bold">
+                ${l.label} →
+            </a>
+        `).join('');
     } else {
-      // Solo si hay sesión mostramos la web
-      content?.classList.remove('hidden');
+        resourcesSection.classList.add('hidden');
     }
+
+    document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active-card'));
+    document.getElementById(`card-${path}-${idx}`)?.classList.add('active-card');
+  };
+
+  function renderPath(pathKey) {
+    const container = document.getElementById('path-container');
+    const label = document.getElementById('path-label');
+    if (!container) return;
+    
+    label.innerText = pathKey.toUpperCase() + " PATH";
+
+    container.innerHTML = content[pathKey].map((c, i) => `
+      <button id="card-${pathKey}-${i}" onclick="window.playVideo('${pathKey}', ${i})" 
+        class="video-card w-full text-left p-3 rounded-2xl border border-transparent hover:bg-white/[0.04] transition-all flex items-center gap-3 group"
+      >
+        <div class="w-7 h-7 rounded-full bg-white/5 flex items-center justify-center text-[9px] font-bold text-creation-gold group-hover:bg-creation-gold group-hover:text-black transition-all">
+          ${(i + 1).toString().padStart(2, '0')}
+        </div>
+        <div class="flex-1">
+          <h4 class="text-[13px] font-bold text-white/70 group-hover:text-white transition-colors leading-tight">${c.title}</h4>
+        </div>
+      </button>
+    `).join('');
   }
+
+  async function init() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) return window.location.assign('/login');
+    document.getElementById('dashboard-content').classList.remove('hidden');
+
+    player = new Plyr('#player', {
+      controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+      youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3 }
+    });
+
+    document.querySelectorAll('.path-tab').forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        document.querySelectorAll('.path-tab').forEach(t => t.classList.remove('active'));
+        e.target.classList.add('active');
+        renderPath(e.target.dataset.path);
+      });
+    });
+
+    renderPath('inicio');
+  }
+
+  init();
 
   document.getElementById('logout')?.addEventListener('click', async () => {
     await supabase.auth.signOut();
     window.location.href = '/login';
   });
-
-  protectPage();
 </script>
+
+<style is:global>
+  :root { --plyr-color-main: #D4AF37; }
+  .path-tab { 
+    @apply text-[10px] uppercase tracking-widest font-bold text-white/30 transition-all border-b-2 border-transparent pb-1 cursor-pointer hover:text-white/60;
+  }
+  .path-tab.active { @apply text-creation-gold border-creation-gold; }
+  .active-card { @apply bg-white/[0.06] border-white/10 !important; }
+  .active-card h4 { @apply text-creation-gold; }
+  .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.2); border-radius: 10px; }
+</style>
