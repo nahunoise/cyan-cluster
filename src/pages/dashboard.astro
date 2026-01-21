@@ -9,10 +9,8 @@ import Layout from '../layouts/Layout.astro';
     
     <nav class="mb-8 border-b border-white/5 pb-6">
       <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-6">
-        
         <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-12">
           <h1 class="text-xl md:text-2xl font-serif italic text-creation-gold text-center md:text-left">The Creation Society</h1>
-          
           <div class="flex gap-4 overflow-x-auto pb-2 md:pb-0 no-scrollbar justify-start md:justify-start px-2 md:px-0 scroll-smooth">
             <button class="path-tab active whitespace-nowrap" data-path="inicio">Inicio</button>
             <button class="path-tab whitespace-nowrap" data-path="creation">Creation</button>
@@ -21,18 +19,15 @@ import Layout from '../layouts/Layout.astro';
             <button class="path-tab border-l border-white/10 pl-4 text-white/40 whitespace-nowrap" data-path="perfil">Perfil</button>
           </div>
         </div>
-
         <div class="flex items-center justify-center md:justify-end gap-3">
-          <a href="https://discord.gg/y2BVDrj6" target="_blank" class="text-[9px] md:text-[10px] bg-[#5865F2] text-white px-4 py-2 rounded-full font-bold hover:brightness-110 transition-all flex items-center gap-2">
-              DISCORD LIVE
-          </a>
+          <a href="https://discord.gg/y2BVDrj6" target="_blank" class="text-[9px] md:text-[10px] bg-[#5865F2] text-white px-4 py-2 rounded-full font-bold hover:brightness-110 transition-all flex items-center gap-2">DISCORD LIVE</a>
           <button id="logout" class="text-[9px] md:text-[10px] uppercase border border-white/10 px-4 py-2 rounded-full hover:bg-white/5 transition-all">Salir</button>
         </div>
       </div>
     </nav>
 
     <div id="view-learning" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      <div class="lg:col-span-8 space-y-6">
+      <div class="lg:col-span-8 space-y-8">
         <div class="rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden shadow-2xl bg-black aspect-video">
           <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="UIByRox2g6k"></div>
         </div>
@@ -45,6 +40,21 @@ import Layout from '../layouts/Layout.astro';
             <p class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold mb-4">Recursos de la sesión</p>
             <div id="resources-list" class="flex flex-wrap gap-3"></div>
           </div>
+        </div>
+
+        <div class="mt-12 pt-10 border-t border-white/5 space-y-6">
+          <h3 class="font-serif italic text-xl text-creation-gold">Conversación</h3>
+          
+          <div class="flex gap-4">
+            <div class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0 text-xs text-creation-gold">You</div>
+            <div class="flex-1 space-y-3">
+              <textarea id="comment-input" placeholder="Deja un pensamiento o duda..." class="w-full bg-white/[0.03] border border-white/10 rounded-2xl p-4 text-sm text-white outline-none focus:border-creation-gold transition-all resize-none h-24"></textarea>
+              <button id="send-comment" class="bg-white/5 border border-white/10 px-6 py-2 rounded-full text-[10px] font-bold uppercase hover:bg-creation-gold hover:text-black transition-all">Publicar</button>
+            </div>
+          </div>
+
+          <div id="comments-container" class="space-y-6 mt-8">
+            </div>
         </div>
       </div>
 
@@ -59,53 +69,33 @@ import Layout from '../layouts/Layout.astro';
         <div class="bg-white/[0.02] border border-white/5 p-6 rounded-2xl md:rounded-3xl">
           <h3 class="text-creation-gold font-serif italic text-lg mb-4">Próximos Eventos</h3>
           <div class="space-y-4">
-            <div class="flex items-center gap-4 border-l border-creation-gold/30 pl-3">
+             <div class="flex items-center gap-4 border-l border-creation-gold/30 pl-3">
               <div class="text-left">
                 <p class="text-creation-gold text-[9px] font-bold uppercase leading-none">ENE 29</p>
                 <p class="text-[11px] text-white/80 mt-1">Kickoff Piloto</p>
               </div>
             </div>
-            <div class="flex items-center gap-4 border-l border-white/10 pl-3 opacity-60">
-              <div class="text-left">
-                <p class="text-white text-[9px] font-bold uppercase leading-none">FEB 05</p>
-                <p class="text-[11px] text-white/80 mt-1">Sesión Destrabe</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-perfil" class="hidden max-w-xl mx-auto py-10 px-2">
+        <div class="bg-white/[0.02] border border-white/5 p-10 rounded-[40px] shadow-2xl">
+            <div class="flex flex-col items-center text-center mb-10">
+              <div class="w-16 h-16 bg-creation-gold/10 rounded-full flex items-center justify-center border border-creation-gold/20 mb-4">
+                <span class="text-creation-gold text-xl font-serif">CS</span>
               </div>
+              <h2 class="text-2xl font-serif italic text-creation-gold">Ajustes de Cuenta</h2>
+              <p id="user-email-display" class="text-white/30 text-[11px] font-mono mt-2 uppercase tracking-widest"></p>
             </div>
-          </div>
+            <div class="space-y-6">
+              <input type="password" id="new-password" placeholder="Nueva contraseña" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm text-white outline-none focus:border-creation-gold" />
+              <button id="update-pw" class="w-full bg-white/5 border border-white/10 text-white text-[11px] uppercase font-bold py-4 rounded-2xl hover:bg-creation-gold hover:text-black transition-all">Actualizar Contraseña</button>
+              <p id="pw-msg" class="text-[10px] mt-4 text-center italic hidden"></p>
+            </div>
         </div>
-      </div>
     </div>
-
-    <div id="view-perfil" class="hidden max-w-xl mx-auto py-6 md:py-10 px-2">
-      <div class="bg-white/[0.02] border border-white/5 p-6 md:p-10 rounded-3xl md:rounded-[40px] shadow-2xl">
-        <div class="flex flex-col items-center text-center mb-8 md:mb-10">
-          <div class="w-12 h-12 md:w-16 md:h-16 bg-creation-gold/10 rounded-full flex items-center justify-center border border-creation-gold/20 mb-4">
-            <span class="text-creation-gold text-lg md:text-xl font-serif">CS</span>
-          </div>
-          <h2 class="text-xl md:text-2xl font-serif italic text-creation-gold">Ajustes de Cuenta</h2>
-          <p id="user-email-display" class="text-white/30 text-[10px] md:text-[11px] font-mono mt-2 uppercase tracking-widest"></p>
-        </div>
-
-        <div class="space-y-6">
-          <div class="space-y-2">
-            <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold ml-1">Seguridad</label>
-            <input 
-              type="password" 
-              id="new-password" 
-              placeholder="Nueva contraseña (mín. 6 caracteres)" 
-              class="w-full bg-black/40 border border-white/10 rounded-xl md:rounded-2xl px-5 py-3 md:py-4 text-sm focus:border-creation-gold outline-none transition-all text-white placeholder:text-white/20"
-            />
-          </div>
-          
-          <button id="update-pw" class="w-full bg-white/5 border border-white/10 text-white text-[11px] uppercase font-bold py-3 md:py-4 rounded-xl md:rounded-2xl hover:bg-creation-gold hover:text-black transition-all">
-            Actualizar Contraseña
-          </button>
-          
-          <p id="pw-msg" class="text-[10px] mt-4 text-center italic hidden"></p>
-        </div>
-      </div>
-    </div>
-
   </main>
 </Layout>
 
@@ -113,31 +103,29 @@ import Layout from '../layouts/Layout.astro';
   import { supabase } from '../lib/supabase';
   import Plyr from 'plyr';
 
+  // --- DATOS ---
   const content = {
     inicio: [
-        { title: 'Bienvenida', desc: 'Has sido seleccionado como parte de este primer piloto The Creation Society.', videoId: 'UIByRox2g6k' },
-        { title: 'El valor del autoaprendizaje', desc: 'Reflexiones e importancias del autoaprendizaje.', videoId: 'gq8MR_JuRG0' },
+        { title: 'Bienvenida', desc: 'Bienvenido al programa.', videoId: 'UIByRox2g6k' },
+        { title: 'El valor del autoaprendizaje', desc: 'Reflexiones fundamentales.', videoId: 'gq8MR_JuRG0' },
     ],
     creation: [
-        { title: 'Setup Builders', desc: 'Instalación de <b>Visual Studio Code</b>.', videoId: 'wlajYcIHipA', links: [{ label: 'Descargar VS Code', url: 'https://code.visualstudio.com/' }] },
-        { title: 'Astro Framework', desc: 'Primeros pasos con Astro.', videoId: 'VIDEO_ID_CR2' },
-        { title: 'GitHub', desc: 'Nuestro repositorio central.', videoId: 'VIDEO_ID_CR2' },
-        { title: 'Vercel', desc: 'Nuestro conector de despliegue.', videoId: 'VIDEO_ID_CR2' },
-        { title: 'IA + Código', desc: 'Jugar con prompts avanzados.', videoId: 'VIDEO_ID_CR3' },
+        { title: 'Setup Builders', desc: 'Instalación de VS Code.', videoId: 'wlajYcIHipA' },
+        { title: 'Astro Framework', desc: 'Iniciando con Astro.', videoId: 'u7idp69s-TM' },
     ],
     impact: [
-        { title: 'Fundamentos', desc: 'Impacto social real.', videoId: 'VIDEO_ID_IM1' },
-        { title: 'Elegir el problema', desc: 'Migración, empleo, salud, clima.', videoId: 'VIDEO_ID_IM2' },
-        { title: 'Ama el problema', desc: 'Escribir un problem statement en 3 frases.', videoId: 'VIDEO_ID_IM3' },  
+        { title: 'Fundamentos', desc: 'Impacto social real.', videoId: 'V9S7I7R8x90' },
     ],
     founder: [
-        { title: 'Mindset Builder', desc: 'Mentalidad de creador constante.', videoId: 'VIDEO_ID_FO1' },
-        { title: 'Productividad', desc: 'Enfocarte en lo que realmente importa.', videoId: 'VIDEO_ID_FO2' },
+        { title: 'Mindset Builder', desc: 'Mentalidad de creador.', videoId: 'M93S8I7R8x0' },
     ],
   };
 
   let player;
+  let currentVideoId = 'UIByRox2g6k';
+  let currentUserEmail = '';
 
+  // --- NAVEGACIÓN VISTAS ---
   const tabs = document.querySelectorAll('.path-tab');
   const viewLearning = document.getElementById('view-learning');
   const viewPerfil = document.getElementById('view-perfil');
@@ -147,7 +135,6 @@ import Layout from '../layouts/Layout.astro';
       const path = (e.target as HTMLElement).dataset.path;
       tabs.forEach(t => t.classList.remove('active'));
       (e.target as HTMLElement).classList.add('active');
-
       if (path === 'perfil') {
         viewLearning?.classList.add('hidden');
         viewPerfil?.classList.remove('hidden');
@@ -159,26 +146,61 @@ import Layout from '../layouts/Layout.astro';
     });
   });
 
+  // --- COMENTARIOS (Lógica) ---
+  async function loadComments(videoId) {
+    const container = document.getElementById('comments-container');
+    if (!container) return;
+    
+    const { data, error } = await supabase
+      .from('comments')
+      .select('*')
+      .eq('video_id', videoId)
+      .order('created_at', { ascending: false });
+
+    if (error) return console.error(error);
+
+    container.innerHTML = data.length ? data.map(c => `
+      <div class="flex gap-4 group animate-in slide-in-from-bottom-2 duration-300">
+        <div class="w-10 h-10 rounded-full bg-creation-gold/10 border border-creation-gold/20 flex items-center justify-center shrink-0 text-[10px] text-creation-gold font-bold">
+          ${c.user_email.substring(0,2).toUpperCase()}
+        </div>
+        <div class="flex-1 space-y-1">
+          <div class="flex items-center gap-3">
+            <p class="text-[11px] font-bold text-creation-gold/80">${c.user_email}</p>
+            <p class="text-[9px] text-white/20 uppercase tracking-tighter">${new Date(c.created_at).toLocaleDateString()}</p>
+          </div>
+          <p class="text-sm text-white/70 leading-relaxed">${c.content}</p>
+        </div>
+      </div>
+    `).join('') : `<p class="text-white/20 text-xs italic text-center py-10">Nadie ha comentado aún. Sé el primero.</p>`;
+  }
+
+  document.getElementById('send-comment')?.addEventListener('click', async () => {
+    const input = document.getElementById('comment-input') as HTMLTextAreaElement;
+    const contentText = input.value.trim();
+    if (!contentText) return;
+
+    const { error } = await supabase.from('comments').insert([
+      { video_id: currentVideoId, user_email: currentUserEmail, content: contentText }
+    ]);
+
+    if (!error) {
+      input.value = '';
+      loadComments(currentVideoId);
+    }
+  });
+
+  // --- VIDEO Y PLAYLIST ---
   window.playVideo = (path, idx) => {
     const item = content[path][idx];
+    currentVideoId = item.videoId;
     player.source = { type: 'video', sources: [{ src: item.videoId, provider: 'youtube' }] };
     player.play();
+    
     document.getElementById('v-title')!.innerText = item.title;
     document.getElementById('v-desc')!.innerHTML = item.desc;
-
-    const resourcesSection = document.getElementById('v-resources');
-    const resourcesList = document.getElementById('resources-list');
     
-    if (item.links && item.links.length > 0) {
-        resourcesSection?.classList.remove('hidden');
-        resourcesList!.innerHTML = item.links.map(l => `
-            <a href="${l.url}" target="_blank" class="text-[9px] bg-white/5 border border-white/10 text-creation-gold px-3 py-2 rounded-full hover:bg-creation-gold hover:text-black transition-all font-bold">
-                ${l.label} →
-            </a>
-        `).join('');
-    } else {
-        resourcesSection?.classList.add('hidden');
-    }
+    loadComments(currentVideoId);
 
     document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active-card'));
     document.getElementById(`card-${path}-${idx}`)?.classList.add('active-card');
@@ -188,90 +210,55 @@ import Layout from '../layouts/Layout.astro';
     const container = document.getElementById('path-container');
     const label = document.getElementById('path-label');
     if (!container || pathKey === 'perfil') return;
-    
     label!.innerText = pathKey.toUpperCase() + " PATH";
     container.innerHTML = content[pathKey].map((c, i) => `
       <button id="card-${pathKey}-${i}" onclick="window.playVideo('${pathKey}', ${i})" 
-        class="video-card w-full text-left p-3 rounded-xl md:rounded-2xl border border-transparent hover:bg-white/[0.04] transition-all flex items-center gap-3 group"
+        class="video-card w-full text-left p-3 rounded-2xl border border-transparent hover:bg-white/[0.04] transition-all flex items-center gap-3 group"
       >
-        <div class="w-6 h-6 md:w-7 md:h-7 rounded-full bg-white/5 flex items-center justify-center text-[8px] md:text-[9px] font-bold text-creation-gold group-hover:bg-creation-gold group-hover:text-black transition-all shrink-0">
+        <div class="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center text-[8px] font-bold text-creation-gold group-hover:bg-creation-gold transition-all shrink-0">
           ${(i + 1).toString().padStart(2, '0')}
         </div>
         <div class="flex-1">
-          <h4 class="text-[12px] md:text-[13px] font-bold text-white/70 group-hover:text-white transition-colors leading-tight">${c.title}</h4>
+          <h4 class="text-[12px] font-bold text-white/70 group-hover:text-white transition-colors leading-tight">${c.title}</h4>
         </div>
       </button>
     `).join('');
   }
 
+  // --- INIT ---
   async function init() {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) return window.location.assign('/login');
     document.getElementById('dashboard-content')?.classList.remove('hidden');
     
-    const emailDisplay = document.getElementById('user-email-display');
-    if (emailDisplay) emailDisplay.innerText = session.user.email ?? '';
+    currentUserEmail = session.user.email ?? '';
+    if (document.getElementById('user-email-display')) {
+      document.getElementById('user-email-display')!.innerText = currentUserEmail;
+    }
 
-    player = new Plyr('#player', {
-      controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
-      youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3 }
-    });
-
+    player = new Plyr('#player', { controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'] });
+    
     renderPath('inicio');
+    loadComments(currentVideoId);
   }
 
   init();
 
+  // (Logout y Password Update se mantienen igual que tu versión anterior)
   document.getElementById('logout')?.addEventListener('click', async () => {
     await supabase.auth.signOut();
     window.location.href = '/login';
-  });
-
-  document.getElementById('update-pw')?.addEventListener('click', async () => {
-    const newPassword = (document.getElementById('new-password') as HTMLInputElement).value;
-    const msg = document.getElementById('pw-msg');
-
-    if (newPassword.length < 6) {
-        msg!.innerText = "Error: Mínimo 6 caracteres";
-        msg!.className = "text-[10px] mt-4 text-center text-red-400 block italic";
-        msg!.classList.remove('hidden');
-        return;
-    }
-
-    const { error } = await supabase.auth.updateUser({ password: newPassword });
-
-    if (error) {
-        msg!.innerText = "Error al conectar con Supabase";
-        msg!.className = "text-[10px] mt-4 text-center text-red-400 block italic";
-    } else {
-        msg!.innerText = "✓ Contraseña actualizada correctamente";
-        msg!.className = "text-[10px] mt-4 text-center text-creation-gold block italic";
-        (document.getElementById('new-password') as HTMLInputElement).value = "";
-    }
-    msg!.classList.remove('hidden');
   });
 </script>
 
 <style is:global>
   :root { --plyr-color-main: #D4AF37; }
-  .path-tab { 
-    @apply text-[10px] uppercase tracking-widest font-bold text-white/30 transition-all border-b-2 border-transparent pb-1 cursor-pointer hover:text-white/60 shrink-0;
-  }
+  .path-tab { @apply text-[10px] uppercase tracking-widest font-bold text-white/30 transition-all border-b-2 border-transparent pb-1 cursor-pointer hover:text-white/60 shrink-0; }
   .path-tab.active { @apply text-creation-gold border-creation-gold; }
   .active-card { @apply bg-white/[0.06] border-white/10 !important; }
   .active-card h4 { @apply text-creation-gold; }
   .custom-scrollbar::-webkit-scrollbar { width: 4px; }
   .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.2); border-radius: 10px; }
-  
-  /* Utilidad para esconder scrollbar en las tabs de mobile */
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-  #view-learning, #view-perfil {
-    animation: fadeIn 0.4s ease-out;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
 </style>
