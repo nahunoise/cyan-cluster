@@ -17,6 +17,7 @@ import Layout from '../layouts/Layout.astro';
             <button class="path-tab whitespace-nowrap" data-path="impact">Impact</button>
             <button class="path-tab whitespace-nowrap" data-path="founder">Founder</button>
             <button class="path-tab border-l border-white/10 pl-4 text-white/40 whitespace-nowrap" data-path="perfil">Perfil</button>
+            <button class="path-tab whitespace-nowrap" data-path="comunidad">Comunidad</button>
           </div>
         </div>
         <div class="flex items-center justify-center md:justify-end gap-3">
@@ -26,7 +27,7 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </nav>
 
-    <div id="view-learning" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+   <div id="view-learning" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       <div class="lg:col-span-8 space-y-8">
         <div class="rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden shadow-2xl bg-black aspect-video">
           <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="UIByRox2g6k"></div>
@@ -35,49 +36,38 @@ import Layout from '../layouts/Layout.astro';
         <div class="space-y-4 px-2 md:px-0">
           <h2 id="v-title" class="text-2xl md:text-3xl font-serif italic text-creation-gold">Bienvenida</h2>
           <div id="v-desc" class="text-white/50 text-sm max-w-2xl leading-relaxed italic text-pretty">Selecciona una clase para comenzar a construir.</div>
-          
-          <div id="v-resources" class="pt-6 border-t border-white/5 hidden">
-            <p class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold mb-4">Recursos de la sesión</p>
-            <div id="resources-list" class="flex flex-wrap gap-3"></div>
-          </div>
         </div>
 
         <div class="mt-12 pt-10 border-t border-white/5 space-y-6">
           <h3 class="font-serif italic text-xl text-creation-gold">Conversación</h3>
-          
           <div class="flex gap-4">
             <div class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0 text-xs text-creation-gold">You</div>
             <div class="flex-1 space-y-3">
-              <textarea id="comment-input" placeholder="Deja un pensamiento o duda..." class="w-full bg-white/[0.03] border border-white/10 rounded-2xl p-4 text-sm text-white outline-none focus:border-creation-gold transition-all resize-none h-24"></textarea>
+              <textarea id="comment-input" placeholder="Deja un pensamiento..." class="w-full bg-white/[0.03] border border-white/10 rounded-2xl p-4 text-sm text-white outline-none focus:border-creation-gold transition-all resize-none h-24"></textarea>
               <button id="send-comment" class="bg-white/5 border border-white/10 px-6 py-2 rounded-full text-[10px] font-bold uppercase hover:bg-creation-gold hover:text-black transition-all">Publicar</button>
             </div>
           </div>
-
-          <div id="comments-container" class="space-y-6 mt-8">
-            </div>
+          <div id="comments-container" class="space-y-6 mt-8"></div>
         </div>
       </div>
 
       <div class="lg:col-span-4 space-y-6">
-        <div class="bg-white/[0.02] border border-white/5 rounded-2xl md:rounded-3xl overflow-hidden flex flex-col max-h-[400px] md:max-h-[450px]">
+        <div class="bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden flex flex-col max-h-[450px]">
           <div class="p-4 border-b border-white/5 bg-white/[0.02]">
             <p id="path-label" class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold">Contenido Actual</p>
           </div>
           <div id="path-container" class="overflow-y-auto p-3 space-y-2 custom-scrollbar"></div>
         </div>
-
-        <div class="bg-white/[0.02] border border-white/5 p-6 rounded-2xl md:rounded-3xl">
-          <h3 class="text-creation-gold font-serif italic text-lg mb-4">Próximos Eventos</h3>
-          <div class="space-y-4">
-             <div class="flex items-center gap-4 border-l border-creation-gold/30 pl-3">
-              <div class="text-left">
-                <p class="text-creation-gold text-[9px] font-bold uppercase leading-none">ENE 29</p>
-                <p class="text-[11px] text-white/80 mt-1">Kickoff Piloto</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
+    </div>
+
+    <div id="view-comunidad" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-6xl mx-auto">
+      <div class="mb-10 text-center">
+        <h2 class="text-3xl font-serif italic text-creation-gold">Builders Ecosystem</h2>
+        <p class="text-white/40 text-sm mt-2">Conoce a los creadores que están construyendo el futuro.</p>
+      </div>
+      <div id="community-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        </div>
     </div>
 
     <div id="view-perfil" class="hidden max-w-xl mx-auto py-10 px-2">
@@ -89,6 +79,35 @@ import Layout from '../layouts/Layout.astro';
               <h2 class="text-2xl font-serif italic text-creation-gold">Ajustes de Cuenta</h2>
               <p id="user-email-display" class="text-white/30 text-[11px] font-mono mt-2 uppercase tracking-widest"></p>
             </div>
+<div class="space-y-6">
+  <div class="space-y-2">
+    <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold ml-1">Nombre Público</label>
+    <input type="text" id="profile-name" placeholder="Tu nombre" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:border-creation-gold outline-none text-white" />
+  </div>
+
+  <div class="space-y-2">
+    <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold ml-1">Biografía Corta</label>
+    <input type="text" id="profile-bio" placeholder="Ej: Diseñador y entusiasta de la IA" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:border-creation-gold outline-none text-white" />
+  </div>
+
+  <div class="space-y-2">
+    <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold ml-1">Tu Proyecto</label>
+    <textarea id="profile-project" placeholder="¿Qué estás construyendo en The Creation Society?" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:border-creation-gold outline-none text-white resize-none h-24"></textarea>
+  </div>
+
+  <div class="space-y-2">
+    <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold ml-1">LinkedIn URL</label>
+    <input type="url" id="profile-linkedin" placeholder="https://linkedin.com/in/tu-usuario" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:border-creation-gold outline-none text-white" />
+  </div>
+  
+  <button id="update-profile-data" class="w-full bg-creation-gold text-black text-[11px] uppercase font-bold py-4 rounded-2xl hover:brightness-110 transition-all">
+    Guardar Perfil de Creador
+  </button>
+  
+  <p id="profile-msg" class="text-[10px] mt-4 text-center italic hidden"></p>
+</div>
+
+
             <div class="space-y-6">
               <input type="password" id="new-password" placeholder="Nueva contraseña" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm text-white outline-none focus:border-creation-gold" />
               <button id="update-pw" class="w-full bg-white/5 border border-white/10 text-white text-[11px] uppercase font-bold py-4 rounded-2xl hover:bg-creation-gold hover:text-black transition-all">Actualizar Contraseña</button>
@@ -103,7 +122,12 @@ import Layout from '../layouts/Layout.astro';
   import { supabase } from '../lib/supabase';
   import Plyr from 'plyr';
 
-  // --- DATOS ---
+  // --- 1. VARIABLES GLOBALES (Estado de la App) ---
+  let player;
+  let currentVideoId = 'UIByRox2g6k';
+  let currentUserEmail = '';
+  let currentUserId = ''; // <--- ESTA ES LA CLAVE
+
   const content = {
     inicio: [
         { title: 'Bienvenida', desc: 'Bienvenido al programa.', videoId: 'UIByRox2g6k' },
@@ -121,117 +145,107 @@ import Layout from '../layouts/Layout.astro';
     ],
   };
 
-  let player;
-  let currentVideoId = 'UIByRox2g6k';
-  let currentUserEmail = '';
+  // --- 2. FUNCIONES DE CARGA (Comments, Profile, Video) ---
 
-  // --- NAVEGACIÓN VISTAS ---
-  const tabs = document.querySelectorAll('.path-tab');
-  const viewLearning = document.getElementById('view-learning');
-  const viewPerfil = document.getElementById('view-perfil');
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', (e) => {
-      const path = (e.target as HTMLElement).dataset.path;
-      tabs.forEach(t => t.classList.remove('active'));
-      (e.target as HTMLElement).classList.add('active');
-      if (path === 'perfil') {
-        viewLearning?.classList.add('hidden');
-        viewPerfil?.classList.remove('hidden');
-      } else {
-        viewPerfil?.classList.add('hidden');
-        viewLearning?.classList.remove('hidden');
-        if (path) renderPath(path);
-      }
-    });
-  });
-
-  // --- COMENTARIOS (Lógica) ---
   async function loadComments(videoId) {
     const container = document.getElementById('comments-container');
     if (!container) return;
     
     const { data, error } = await supabase
       .from('comments')
-      .select('*')
+      .select(`content, created_at, profiles ( full_name )`)
       .eq('video_id', videoId)
       .order('created_at', { ascending: false });
 
     if (error) return console.error(error);
 
-    container.innerHTML = data.length ? data.map(c => `
-      <div class="flex gap-4 group animate-in slide-in-from-bottom-2 duration-300">
+    container.innerHTML = data.map(c => `
+      <div class="flex gap-4 animate-in fade-in duration-500">
         <div class="w-10 h-10 rounded-full bg-creation-gold/10 border border-creation-gold/20 flex items-center justify-center shrink-0 text-[10px] text-creation-gold font-bold">
-          ${c.user_email.substring(0,2).toUpperCase()}
+          ${c.profiles?.full_name?.substring(0,2).toUpperCase() || '??'}
         </div>
-        <div class="flex-1 space-y-1">
+        <div class="flex-1">
           <div class="flex items-center gap-3">
-            <p class="text-[11px] font-bold text-creation-gold/80">${c.user_email}</p>
-            <p class="text-[9px] text-white/20 uppercase tracking-tighter">${new Date(c.created_at).toLocaleDateString()}</p>
+            <p class="text-[11px] font-bold text-creation-gold/80">${c.profiles?.full_name || 'Usuario Anónimo'}</p>
+            <p class="text-[9px] text-white/20 uppercase">${new Date(c.created_at).toLocaleDateString()}</p>
           </div>
-          <p class="text-sm text-white/70 leading-relaxed">${c.content}</p>
+          <p class="text-sm text-white/70">${c.content}</p>
         </div>
       </div>
-    `).join('') : `<p class="text-white/20 text-xs italic text-center py-10">Nadie ha comentado aún. Sé el primero.</p>`;
+    `).join('');
   }
 
+  async function loadProfileData(userId) {
+    const { data } = await supabase.from('profiles').select('*').eq('id', userId).single();
+    if (data) {
+      (document.getElementById('profile-name') as HTMLInputElement).value = data.full_name || '';
+      (document.getElementById('profile-bio') as HTMLInputElement).value = data.bio || '';
+      (document.getElementById('profile-project') as HTMLTextAreaElement).value = data.project_description || '';
+      (document.getElementById('profile-linkedin') as HTMLInputElement).value = data.linkedin_url || '';
+    }
+  }
+
+  // --- 3. EVENTOS DE BOTONES (Click Listeners) ---
+
+  // Botón Publicar Comentario
   document.getElementById('send-comment')?.addEventListener('click', async () => {
     const input = document.getElementById('comment-input') as HTMLTextAreaElement;
     const contentText = input.value.trim();
-    if (!contentText) return;
+    
+    if (!contentText || !currentUserId) return;
 
     const { error } = await supabase.from('comments').insert([
-      { video_id: currentVideoId, user_email: currentUserEmail, content: contentText }
+      { 
+        video_id: currentVideoId, 
+        content: contentText,
+        user_id: currentUserId,
+        user_email: currentUserEmail 
+      }
     ]);
 
     if (!error) {
       input.value = '';
       loadComments(currentVideoId);
+    } else {
+      console.error("Error al comentar:", error.message);
     }
   });
 
-  // --- VIDEO Y PLAYLIST ---
-  window.playVideo = (path, idx) => {
-    const item = content[path][idx];
-    currentVideoId = item.videoId;
-    player.source = { type: 'video', sources: [{ src: item.videoId, provider: 'youtube' }] };
-    player.play();
-    
-    document.getElementById('v-title')!.innerText = item.title;
-    document.getElementById('v-desc')!.innerHTML = item.desc;
-    
-    loadComments(currentVideoId);
+  // Botón Guardar Perfil
+  document.getElementById('update-profile-data')?.addEventListener('click', async () => {
+    const name = (document.getElementById('profile-name') as HTMLInputElement).value;
+    const bio = (document.getElementById('profile-bio') as HTMLInputElement).value;
+    const project = (document.getElementById('profile-project') as HTMLTextAreaElement).value;
+    const linkedin = (document.getElementById('profile-linkedin') as HTMLInputElement).value;
+    const msg = document.getElementById('profile-msg');
 
-    document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active-card'));
-    document.getElementById(`card-${path}-${idx}`)?.classList.add('active-card');
-  };
+    const { error } = await supabase.from('profiles').upsert({
+      id: currentUserId,
+      full_name: name,
+      bio: bio,
+      project_description: project,
+      linkedin_url: linkedin,
+      updated_at: new Date()
+    });
 
-  function renderPath(pathKey) {
-    const container = document.getElementById('path-container');
-    const label = document.getElementById('path-label');
-    if (!container || pathKey === 'perfil') return;
-    label!.innerText = pathKey.toUpperCase() + " PATH";
-    container.innerHTML = content[pathKey].map((c, i) => `
-      <button id="card-${pathKey}-${i}" onclick="window.playVideo('${pathKey}', ${i})" 
-        class="video-card w-full text-left p-3 rounded-2xl border border-transparent hover:bg-white/[0.04] transition-all flex items-center gap-3 group"
-      >
-        <div class="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center text-[8px] font-bold text-creation-gold group-hover:bg-creation-gold transition-all shrink-0">
-          ${(i + 1).toString().padStart(2, '0')}
-        </div>
-        <div class="flex-1">
-          <h4 class="text-[12px] font-bold text-white/70 group-hover:text-white transition-colors leading-tight">${c.title}</h4>
-        </div>
-      </button>
-    `).join('');
-  }
+    if (msg) {
+      msg.innerText = error ? "Error al guardar" : "✓ Perfil actualizado";
+      msg.style.color = error ? "#f87171" : "#D4AF37";
+      msg.classList.remove('hidden');
+    }
+  });
 
-  // --- INIT ---
+  // --- 4. INICIALIZACIÓN ---
+
   async function init() {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) return window.location.assign('/login');
-    document.getElementById('dashboard-content')?.classList.remove('hidden');
     
+    // ASIGNACIÓN DE SESIÓN A VARIABLES GLOBALES
+    currentUserId = session.user.id;
     currentUserEmail = session.user.email ?? '';
+
+    document.getElementById('dashboard-content')?.classList.remove('hidden');
     if (document.getElementById('user-email-display')) {
       document.getElementById('user-email-display')!.innerText = currentUserEmail;
     }
@@ -240,15 +254,111 @@ import Layout from '../layouts/Layout.astro';
     
     renderPath('inicio');
     loadComments(currentVideoId);
+    loadProfileData(currentUserId);
+  }
+
+  // Las funciones window.playVideo y renderPath van aquí igual que antes...
+  window.playVideo = (path, idx) => {
+    const item = content[path][idx];
+    currentVideoId = item.videoId;
+    player.source = { type: 'video', sources: [{ src: item.videoId, provider: 'youtube' }] };
+    player.play();
+    document.getElementById('v-title')!.innerText = item.title;
+    document.getElementById('v-desc')!.innerHTML = item.desc;
+    loadComments(currentVideoId);
+  };
+
+  function renderPath(pathKey) {
+    const container = document.getElementById('path-container');
+    if (!container) return;
+    container.innerHTML = content[pathKey].map((c, i) => `
+      <button onclick="window.playVideo('${pathKey}', ${i})" class="video-card w-full text-left p-3 rounded-2xl flex items-center gap-3 group">
+        <div class="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center text-[8px] font-bold text-creation-gold group-hover:bg-creation-gold transition-all shrink-0">${i+1}</div>
+        <h4 class="text-[12px] font-bold text-white/70 group-hover:text-white">${c.title}</h4>
+      </button>
+    `).join('');
   }
 
   init();
 
-  // (Logout y Password Update se mantienen igual que tu versión anterior)
-  document.getElementById('logout')?.addEventListener('click', async () => {
-    await supabase.auth.signOut();
-    window.location.href = '/login';
+  // Tabs navigation
+// --- NAVEGACIÓN DE VISTAS ACTUALIZADA ---
+  const tabs = document.querySelectorAll('.path-tab');
+  
+  // Referencias a las secciones
+  const viewLearning = document.getElementById('view-learning');
+  const viewPerfil = document.getElementById('view-perfil');
+  const viewComunidad = document.getElementById('view-comunidad');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      const path = (e.target as HTMLElement).dataset.path;
+
+      // 1. Gestionar clases de los botones (el subrayado dorado)
+      tabs.forEach(t => t.classList.remove('active'));
+      (e.target as HTMLElement).classList.add('active');
+
+      // 2. Ocultar TODAS las vistas primero para "limpiar" la pantalla
+      viewLearning?.classList.add('hidden');
+      viewPerfil?.classList.add('hidden');
+      viewComunidad?.classList.add('hidden');
+
+      // 3. Mostrar la vista que corresponde
+      if (path === 'perfil') {
+        viewPerfil?.classList.remove('hidden');
+      } 
+      else if (path === 'comunidad') {
+        viewComunidad?.classList.remove('hidden');
+        loadCommunity(); // Llamamos a la función para cargar los perfiles
+      } 
+      else {
+        // Si no es perfil ni comunidad, es una de las rutas de aprendizaje (inicio, creation, etc.)
+        viewLearning?.classList.remove('hidden');
+        if (path) renderPath(path);
+      }
+    });
   });
+
+  async function loadCommunity() {
+    const grid = document.getElementById('community-grid');
+    if (!grid) return;
+
+    // Limpiamos el grid para mostrar que está cargando
+    grid.innerHTML = '<p class="text-creation-gold animate-pulse text-center col-span-full uppercase text-[10px] tracking-widest">Cargando ecosistema...</p>';
+
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .not('full_name', 'is', null) // Solo gente con nombre
+      .order('updated_at', { ascending: false });
+
+    if (error) {
+      console.error(error);
+      grid.innerHTML = '<p class="text-red-400">Error al cargar la comunidad.</p>';
+      return;
+    }
+
+    grid.innerHTML = data.map(profile => `
+      <div class="bg-white/[0.02] border border-white/5 p-6 rounded-[32px] hover:border-creation-gold/30 transition-all group">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-2xl bg-creation-gold/10 border border-creation-gold/20 flex items-center justify-center text-creation-gold font-bold">
+            ${profile.full_name?.substring(0,2).toUpperCase() || '??'}
+          </div>
+          ${profile.linkedin_url ? `
+            <a href="${profile.linkedin_url}" target="_blank" class="text-white/20 hover:text-creation-gold transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+          ` : ''}
+        </div>
+        <h3 class="text-lg font-serif italic text-white group-hover:text-creation-gold transition-colors">${profile.full_name}</h3>
+        <p class="text-[10px] uppercase tracking-widest text-creation-gold/60 font-bold mb-3">${profile.bio || 'Builder'}</p>
+        <div class="pt-4 border-t border-white/5">
+          <p class="text-[11px] text-white/40 uppercase tracking-tighter mb-1">Proyecto:</p>
+          <p class="text-sm text-white/70 italic line-clamp-3">${profile.project_description || 'En desarrollo...'}</p>
+        </div>
+      </div>
+    `).join('');
+  }
 </script>
 
 <style is:global>
