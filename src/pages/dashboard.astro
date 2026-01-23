@@ -37,14 +37,14 @@ import Layout from '../layouts/Layout.astro';
           <div class="flex items-center gap-2 opacity-40">
             <span id="v-track-label" class="text-[10px] uppercase tracking-[0.3em] font-bold">Inicio</span>
             <span class="text-[10px]">/</span>
-            <span id="v-index-label" class="text-[10px] uppercase tracking-[0.3em]">Lección 1</span>
+            <span id="v-index-label" class="text-[10px] uppercase tracking-[0.3em]">Paso 1</span>
           </div>
           <h2 id="v-title" class="text-2xl md:text-3xl font-serif italic text-creation-gold">Bienvenida</h2>
           <div id="v-desc" class="text-white/50 text-sm max-w-2xl leading-relaxed italic text-pretty">Selecciona una clase para comenzar.</div>
           
           <div class="pt-6">
             <button id="next-video-btn" class="group flex items-center gap-3 bg-white/5 border border-white/10 px-8 py-3 rounded-full hover:bg-creation-gold hover:text-black transition-all duration-500">
-              <span class="text-[10px] uppercase tracking-[0.2em] font-bold">Continuar lección</span>
+              <span class="text-[10px] uppercase tracking-[0.2em] font-bold">Continuar </span>
               <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
             </button>
           </div>
@@ -158,7 +158,7 @@ import Layout from '../layouts/Layout.astro';
     
     // Actualización de Textos
     document.getElementById('v-track-label').innerText = trackNames[path] || path;
-    document.getElementById('v-index-label').innerText = `Lección ${idx + 1}`;
+    document.getElementById('v-index-label').innerText = `Paso ${idx + 1}`;
     document.getElementById('v-title').innerText = item.title;
     document.getElementById('v-desc').innerHTML = item.desc;
 
