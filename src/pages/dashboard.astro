@@ -288,6 +288,11 @@ import Layout from '../layouts/Layout.astro';
   window.deleteComment = async (id) => {
     if (confirm("¿Borrar?")) { await supabase.from('comments').delete().eq('id', id); loadComments(currentVideoId); }
   };
+  document.getElementById('logout')?.addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    window.location.assign('/login');
+  });  
+
 </script>
 
 <style is:global>
