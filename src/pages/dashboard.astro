@@ -33,6 +33,7 @@ import Layout from '../layouts/Layout.astro';
           <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="UIByRox2g6k"></div>
         </div>
         
+        
         <div class="space-y-4 px-2 md:px-0">
           <div class="flex items-center gap-2 opacity-40">
             <span id="v-track-label" class="text-[10px] uppercase tracking-[0.3em] font-bold">Inicio</span>
@@ -153,8 +154,13 @@ import Layout from '../layouts/Layout.astro';
         { title: 'Setup Builders', desc: 'Instalación de VS Code.', videoId: 'wlajYcIHipA' },
         { title: 'Astro Framework', desc: 'Iniciando con Astro.', videoId: 'u7idp69s-TM' },
     ],
-    impact: [{ title: 'Fundamentos', desc: 'Impacto social real.', videoId: 'V9S7I7R8x90' }],
-    founder: [{ title: 'Mindset Builder', desc: 'Mentalidad de creador.', videoId: 'M93S8I7R8x0' }],
+
+    impact: [
+      { title: 'Fundamentos', desc: 'Impacto social real.', videoId: 'V9S7I7R8x90' }
+    ],
+    founder: [
+      { title: 'Llenate de preguntas antes de fundar', desc: 'Mentalidad de creador.', videoId: '1Z2XFq1BrYA' }
+    ],
   };
 
   // --- LÓGICA DE VIDEO ---
@@ -265,6 +271,18 @@ import Layout from '../layouts/Layout.astro';
       else { document.getElementById('view-learning').classList.remove('hidden'); window.playVideo(path, 0); }
     });
   });
+
+  // --- LISTENERS DE INTERACCIÓN ---
+document.getElementById('next-video-btn')?.addEventListener('click', () => {
+  const nextIndex = currentIndex + 1;
+  // Verificamos si existe una siguiente lección en el track actual
+  if (content[currentPath] && content[currentPath][nextIndex]) {
+    window.playVideo(currentPath, nextIndex);
+    
+    // Opcional: Hacer scroll hacia arriba para ver el nuevo video (útil en móvil)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+});
 
   document.getElementById('update-profile-data')?.addEventListener('click', async () => {
     const msg = document.getElementById('profile-msg');
