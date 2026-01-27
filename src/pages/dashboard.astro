@@ -6,26 +6,27 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Dashboard | The Creation Society">
   <main id="dashboard-content" class="hidden max-w-7xl mx-auto px-4 md:px-6 pt-6 md:pt-10 pb-20 text-creation-cream">
-    
-    <nav class="mb-8 border-b border-white/5 pb-6">
-      <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-6">
-        <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-12">
-          <h1 class="text-xl md:text-2xl font-serif italic text-creation-gold text-center md:text-left">The Creation Society</h1>
-          <div class="flex gap-4 overflow-x-auto pb-2 md:pb-0 no-scrollbar justify-start md:justify-start px-2 md:px-0 scroll-smooth">
-            <button class="path-tab active whitespace-nowrap" data-path="inicio">Inicio</button>
-            <button class="path-tab whitespace-nowrap" data-path="creation">Creation</button>
-            <button class="path-tab whitespace-nowrap" data-path="impact">Impact</button>
-            <button class="path-tab whitespace-nowrap" data-path="founder">Founder</button>
-            <button class="path-tab border-l border-white/10 pl-4 text-white/40 whitespace-nowrap" data-path="perfil">Perfil</button>
-            <button class="path-tab whitespace-nowrap" data-path="comunidad">Comunidad</button>
-          </div>
-        </div>
-        <div class="flex items-center justify-center md:justify-end gap-3">
-          <a href="https://discord.gg/HMwxQtky" target="_blank" class="text-[9px] md:text-[10px] bg-[#5865F2] text-white px-4 py-2 rounded-full font-bold hover:brightness-110 transition-all flex items-center gap-2">DISCORD LIVE</a>
-          <button id="logout" class="text-[9px] md:text-[10px] uppercase border border-white/10 px-4 py-2 rounded-full hover:bg-white/5 transition-all">Salir</button>
-        </div>
-      </div>
-    </nav>
+<nav class="mb-8 border-b border-white/5 pb-6">
+  <div class="text-center md:text-left mb-6">
+    <h1 class="text-xl md:text-2xl font-serif italic text-creation-gold">The Creation Society</h1>
+  </div>
+
+  <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-6">
+    <div class="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth py-2 border-y border-white/5 md:border-none">
+      <button class="path-tab active whitespace-nowrap" data-path="inicio">Inicio</button>
+      <button class="path-tab whitespace-nowrap" data-path="creation">Creation</button>
+      <button class="path-tab whitespace-nowrap" data-path="impact">Impact</button>
+      <button class="path-tab whitespace-nowrap" data-path="founder">Founder</button>
+      <button class="path-tab border-l border-white/10 pl-4 text-white/40 whitespace-nowrap" data-path="perfil">Perfil</button>
+      <button class="path-tab whitespace-nowrap" data-path="comunidad">Comunidad</button>
+    </div>
+
+    <div class="flex items-center justify-center md:justify-end gap-3">
+           <a href="https://discord.gg/HMwxQtky" target="_blank" class="text-[9px] md:text-[10px] bg-[#5865F2] text-white px-4 py-2 rounded-full font-bold hover:brightness-110 transition-all flex items-center gap-2">DISCORD LIVE</a>
+      <button id="logout" class="text-[9px] md:text-[10px] uppercase border border-white/10 px-4 py-2 rounded-full hover:bg-white/5 transition-all">Salir</button>
+    </div>
+  </div>
+</nav>
 
     <div id="view-learning" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       <div class="lg:col-span-8 space-y-8">
@@ -159,6 +160,7 @@ import Layout from '../layouts/Layout.astro';
         { title: 'Figma Basicos', desc: 'Un básico de figma, si ya lo usas pasa este video', videoId: 'Ppxw3-dN7f8' },
         { title: 'Buscar inspiración', desc: 'Inpsiración visual para tu web <a href="https://www.cosmos.com" target="_blank" class="text-creation-gold underline">Cosmos</a> <a href="https//www.awwwards.com" target="_blank" class="text-creation-gold underline">Awwwards </a> <a href="https://www.dribbble.com" target="_blank" class="text-creation-gold underline">Dribbble</a>', videoId: 'XOCBoOAGWAE' },
         { title: 'De figma a código', desc: 'Pasar de tu diseño a código con la ayuda de Gemini IA <a href="https://gemini.google.com/" target="_blank" class="text-creation-gold underline">Gemini IA</a>', videoId: 'e83gC4oC8lI' },
+        { title: 'Instalación de visual Code Studio en Windows', desc: 'Un paso a paso con mi hermano de como instalar Visual Studio Code en Windows', videoId: 'J3j2bX9oK1o' },
        // { title: 'Estructura de una web', desc: 'Partes fundamentales de una web', videoId: 'J3j2bX9oK1o' },
         //{ title: 'Construyendo con Astro', desc: 'Construcción de la web con Astro.js <a href="https://astro.build/" target="_blank" class="text-creation-gold underline">Astro.js</a>', videoId: 'J1j1jYk9b0o' },
         //{ title: 'Despliegue con Vercel', desc: 'Despliegue de la web con Vercel <a href="https://vercel.com/" target="_blank" class="text-creation-gold underline">Vercel</a>', videoId: 'to1oX1bX1yA' },
