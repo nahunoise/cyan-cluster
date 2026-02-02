@@ -224,7 +224,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <h3 class="text-lg font-serif italic text-white group-hover:text-creation-gold">${p.full_name}</h3>
         <p class="text-[10px] uppercase text-creation-gold/60 font-bold mb-3">${p.bio || 'Builder'}</p>
-        <p class="text-sm text-white/70 italic border-t border-white/5 pt-4 line-clamp-3">${p.project_description || 'En el track...'}</p>
+        <p class="text-sm text-white/70 italic border-t border-white/5 pt-4 line-clamp-20">${p.project_description || 'En el track...'}</p>
       </div>
     `).join('') || '';
   }
