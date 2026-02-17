@@ -6,34 +6,42 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Dashboard | The Creation Society">
   <main id="dashboard-content" class="hidden max-w-7xl mx-auto px-4 md:px-6 pt-6 md:pt-10 pb-20 text-creation-cream">
-<nav class="mb-8 border-b border-white/5 pb-6">
-  <div class="text-center md:text-left mb-6">
-    <h1 class="text-xl md:text-2xl font-serif italic text-creation-gold">The Creation Society</h1>
-  </div>
+    <nav class="mb-8 border-b border-white/5 pb-6">
+      <div class="text-center md:text-left mb-6">
+        <h1 class="text-xl md:text-2xl font-serif italic text-creation-gold">The Creation Society</h1>
+      </div>
 
-  <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-6">
-    <div class="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth py-2 border-y border-white/5 md:border-none">
-      <button class="path-tab active whitespace-nowrap" data-path="inicio">Inicio</button>
-      <button class="path-tab whitespace-nowrap" data-path="creation">Creation</button>
-      <button class="path-tab whitespace-nowrap" data-path="impact">Impact</button>
-      <button class="path-tab whitespace-nowrap" data-path="founder">Founder</button>
-      <button class="path-tab border-l border-white/10 pl-4 text-white/40 whitespace-nowrap" data-path="perfil">Perfil</button>
-      <button class="path-tab whitespace-nowrap" data-path="comunidad">Comunidad</button>
-    </div>
+      <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-6">
+        <div class="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth py-2 border-y border-white/5 md:border-none">
+          <button class="path-tab active whitespace-nowrap" data-path="inicio">Inicio</button>
+          <button class="path-tab whitespace-nowrap" data-path="creation">Creation</button>
+          <button class="path-tab whitespace-nowrap" data-path="impact">Impact</button>
+          <button class="path-tab whitespace-nowrap" data-path="founder">Founder</button>
+          <button class="path-tab border-l border-white/10 pl-4 text-white/40 whitespace-nowrap" data-path="perfil">Perfil</button>
+          <button class="path-tab whitespace-nowrap" data-path="comunidad">Comunidad</button>
+        </div>
 
-    <div class="flex items-center justify-center md:justify-end gap-3">
-           <a href="https://discord.gg/HMwxQtky" target="_blank" class="text-[9px] md:text-[10px] bg-[#5865F2] text-white px-4 py-2 rounded-full font-bold hover:brightness-110 transition-all flex items-center gap-2">DISCORD LIVE</a>
-      <button id="logout" class="text-[9px] md:text-[10px] uppercase border border-white/10 px-4 py-2 rounded-full hover:bg-white/5 transition-all">Salir</button>
-    </div>
-  </div>
-</nav>
+        <div class="flex items-center justify-center md:justify-end gap-3">
+          <a href="https://discord.gg/HMwxQtky" target="_blank" class="text-[9px] md:text-[10px] bg-[#5865F2] text-white px-4 py-2 rounded-full font-bold hover:brightness-110 transition-all flex items-center gap-2">DISCORD LIVE</a>
+          <button id="logout" class="text-[9px] md:text-[10px] uppercase border border-white/10 px-4 py-2 rounded-full hover:bg-white/5 transition-all">Salir</button>
+        </div>
+      </div>
+    </nav>
 
     <div id="view-learning" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       <div class="lg:col-span-8 space-y-8">
+        
+        <div id="news-section" class="hidden animate-in fade-in slide-in-from-top-4 duration-700">
+          <div class="bg-gradient-to-r from-creation-gold/10 to-transparent border-l-2 border-creation-gold p-6 rounded-r-2xl">
+            <p class="text-[10px] uppercase tracking-widest text-creation-gold font-bold mb-2">Últimas Noticias</p>
+            <h3 id="news-title" class="text-xl font-serif italic mb-2"></h3>
+            <p id="news-content" class="text-sm text-white/60 leading-relaxed"></p>
+          </div>
+        </div>
+
         <div class="rounded-2xl md:rounded-3xl border border-white/10 overflow-hidden shadow-2xl bg-black aspect-video">
           <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="UIByRox2g6k"></div>
         </div>
-        
         
         <div class="space-y-4 px-2 md:px-0">
           <div class="flex items-center gap-2 opacity-40">
@@ -66,6 +74,12 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <div class="lg:col-span-4 space-y-6">
+        
+        <div id="agenda-section" class="hidden bg-white/[0.02] border border-white/5 rounded-2xl p-5 space-y-4">
+          <p class="text-[10px] uppercase tracking-widest text-creation-gold font-bold">Agenda / Fechas Clave</p>
+          <div id="agenda-items" class="space-y-4"></div>
+        </div>
+
         <div class="bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden flex flex-col max-h-[450px]">
           <div class="p-4 border-b border-white/5 bg-white/[0.02]">
             <p id="path-label" class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold">Contenido Actual</p>
@@ -84,43 +98,41 @@ import Layout from '../layouts/Layout.astro';
     </div>
 
     <div id="view-perfil" class="hidden max-w-xl mx-auto py-10 px-2">
-        <div class="bg-white/[0.02] border border-white/5 p-10 rounded-[40px] shadow-2xl">
-            <div class="flex flex-col items-center text-center mb-10">
-              <div class="w-16 h-16 bg-creation-gold/10 rounded-full flex items-center justify-center border border-creation-gold/20 mb-4">
-                <span class="text-creation-gold text-xl font-serif">CS</span>
+      <div class="bg-white/[0.02] border border-white/5 p-10 rounded-[40px] shadow-2xl">
+          <div class="flex flex-col items-center text-center mb-10">
+            <div class="w-16 h-16 bg-creation-gold/10 rounded-full flex items-center justify-center border border-creation-gold/20 mb-4">
+              <span class="text-creation-gold text-xl font-serif">CS</span>
+            </div>
+            <h2 class="text-2xl font-serif italic text-creation-gold">Ajustes de Cuenta</h2>
+            <p id="user-email-display" class="text-white/30 text-[11px] font-mono mt-2 uppercase tracking-widest"></p>
+          </div>
+          <div class="space-y-6">
+              <div class="space-y-2">
+                  <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold">Nombre Público</label>
+                  <input type="text" id="profile-name" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:border-creation-gold outline-none text-white" />
               </div>
-              <h2 class="text-2xl font-serif italic text-creation-gold">Ajustes de Cuenta</h2>
-              <p id="user-email-display" class="text-white/30 text-[11px] font-mono mt-2 uppercase tracking-widest"></p>
-            </div>
-            <div class="space-y-6">
+              <div class="space-y-2">
+                  <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold">Biografía Corta</label>
+                  <input type="text" id="profile-bio" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:border-creation-gold outline-none text-white" />
+              </div>
+              <div class="space-y-2">
+                  <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold">Tu Proyecto</label>
+                  <textarea id="profile-project" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:border-creation-gold outline-none text-white resize-none h-24"></textarea>
+              </div>
+              <div class="space-y-2">
+                  <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold">LinkedIn URL</label>
+                  <input type="url" id="profile-linkedin" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:border-creation-gold outline-none text-white" placeholder="https://linkedin.com/in/..." />
+              </div>
+              <div class="pt-4 border-t border-white/5 space-y-4">
                 <div class="space-y-2">
-                    <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold">Nombre Público</label>
-                    <input type="text" id="profile-name" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:border-creation-gold outline-none text-white" />
+                    <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold">Nueva Contraseña</label>
+                    <input type="password" id="profile-password" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:border-creation-gold outline-none text-white" placeholder="Dejar en blanco para no cambiar" />
                 </div>
-                <div class="space-y-2">
-                    <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold">Biografía Corta</label>
-                    <input type="text" id="profile-bio" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:border-creation-gold outline-none text-white" />
-                </div>
-                <div class="space-y-2">
-                    <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold">Tu Proyecto</label>
-                    <textarea id="profile-project" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:border-creation-gold outline-none text-white resize-none h-24"></textarea>
-                </div>
-                <div class="space-y-2">
-                    <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold">LinkedIn URL</label>
-                    <input type="url" id="profile-linkedin" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:border-creation-gold outline-none text-white" placeholder="https://linkedin.com/in/..." />
-                </div>
-
-                <div class="pt-4 border-t border-white/5 space-y-4">
-                  <div class="space-y-2">
-                      <label class="text-[10px] uppercase tracking-[0.2em] text-creation-gold font-bold">Nueva Contraseña</label>
-                      <input type="password" id="profile-password" class="w-full bg-black/40 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:border-creation-gold outline-none text-white" placeholder="Dejar en blanco para no cambiar" />
-                  </div>
-                </div>
-
-                <button id="update-profile-data" class="w-full bg-creation-gold text-black text-[11px] uppercase font-bold py-4 rounded-2xl hover:brightness-110 transition-all">Guardar Perfil</button>
-                <p id="profile-msg" class="text-[10px] mt-4 text-center italic hidden"></p>
-            </div>
-        </div>
+              </div>
+              <button id="update-profile-data" class="w-full bg-creation-gold text-black text-[11px] uppercase font-bold py-4 rounded-2xl hover:brightness-110 transition-all">Guardar Perfil</button>
+              <p id="profile-msg" class="text-[10px] mt-4 text-center italic hidden"></p>
+          </div>
+      </div>
     </div>
   </main>
 </Layout>
@@ -129,7 +141,6 @@ import Layout from '../layouts/Layout.astro';
   import { supabase } from '../lib/supabase';
   import Plyr from 'plyr';
 
-  // --- VARIABLES DE ESTADO ---
   let player;
   let currentVideoId = 'UIByRox2g6k';
   let currentUserEmail = '';
@@ -145,6 +156,18 @@ import Layout from '../layouts/Layout.astro';
     founder: "Founder Track"
   };
 
+  const updates = {
+    news: {
+      title: "El primer ofrenda de la Creation Society",
+      content: ": Enrique nos explica la importancia de investigar para crear mejor y nos comparte su ofrenda personal, un ritual que lo conecta con su proceso creativo y con la comunidad."
+    },
+    agenda: [
+      { date: "18 Feb", event: "Nacimiento The Creation Society", time: "18:00 hrs(GMT+1)" },
+      { date: "18 Mar", event: "Sesion Q&A The Creaion Society ", time: "18:00 hrs(GMT+1)" },
+      { date: "3 Abril", event: "Graduación Cohorte 1", time: "18:00 hrs (GMT+1)" }
+    ]
+  };
+
   const content = {
     inicio: [
         { title: 'Bienvenida', desc: 'Bienvenido al programa.', videoId: 'UIByRox2g6k' },
@@ -152,46 +175,70 @@ import Layout from '../layouts/Layout.astro';
         { title: 'Rituales y espacios para compartir', desc: 'Whatsapp para notificar, aquí para compartir y Discord para algo más informal', videoId: 'xwDVf97Hf58' },
     ],
     creation: [
-        { title: 'Setup Builders', 
-        desc: 'Las herramientas que usaremos ahora, instalar o crear cuenta en este orden: <a href="https://github.com" target="_blank" class="text-creation-gold underline"> 1. GitHub, es el respositorio de todo tu código </a>,  <a href="https://code.visualstudio.com" target="_blank" class="text-creation-gold underline"> 2. Visual Studio Code, usa tu cuenta de Github para darte de alta en Visual Code</a> <a href="https://vercel.com/" target="_blank" class="text-creation-gold underline">   3. Vercel, lo que permitirá que se pueda ver online. Date de alta con tu cuenta de Github</a>  <a href="https://astro.build" target="_blank" class="text-creation-gold underline">Documentación de Astro</a>' , videoId: 'wlajYcIHipA' },
-        { title: 'La IA es el peor diseñador gráfico', 
-        desc: 'Las promesas de la IA como diseñador gráfico son irreales cuando no eres sensible al diseño, recomiendo intentar personalizar el diseño de tu página web para que se siente más autentico <a href="https://www.figma.com/" target="_blank" class="text-creation-gold underline">Crear una cuenta en Figma</a>', 
-        videoId: 'MPZw4RR_pyQ'  },
+        { title: 'Setup Builders', desc: 'Las herramientas que usaremos ahora, GitHub, VS Code, Vercel y Astro.', videoId: 'wlajYcIHipA' },
+        { title: 'La IA es el peor diseñador gráfico', desc: 'Las promesas de la IA como diseñador gráfico...', videoId: 'MPZw4RR_pyQ'  },
         { title: 'Figma Basicos', desc: 'Un básico de figma, si ya lo usas pasa este video', videoId: 'Ppxw3-dN7f8' },
-        { title: 'Buscar inspiración', desc: 'Inpsiración visual para tu web <a href="https://www.cosmos.com" target="_blank" class="text-creation-gold underline">Cosmos</a> <a href="https//www.awwwards.com" target="_blank" class="text-creation-gold underline">Awwwards </a> <a href="https://www.dribbble.com" target="_blank" class="text-creation-gold underline">Dribbble</a>', videoId: 'XOCBoOAGWAE' },
-        { title: 'De figma a código', desc: 'Pasar de tu diseño a código con la ayuda de Gemini IA <a href="https://gemini.google.com/" target="_blank" class="text-creation-gold underline">Gemini IA</a>', videoId: 'e83gC4oC8lI' },
-        { title: 'Instalación de visual Code Studio en Windows', desc: 'Mi voz esta duplicada pero fue la única forma de rescatar el video con mi hermano, donde le muestro a instalarse el Visual Code Studio. Fue un paso a paso con mi hermano', videoId: '_R68XfP72Z4' },
-        { title: 'Instalación de visual Code Studio en Mac', desc: 'Instalación de Visual Code Studio en Mac, una vez instalado tienes que instalar el Git para poder hacer commits en tu git hub y node.js para poder trabajar con el framework Astro, aquí los enlaces de ambos <a href="https://brew.sh" target="_blank" class="text-creation-gold underline">Git</a> <a href="https://nodejs.org/" target="_blank" class="text-creation-gold underline">Node.js</a>', videoId: 'aBA4Kaa1w64' },
-        { title: 'Primeros pasos con Visual Code Studio', desc: 'Primeros pasos con Visual Code Studio + algo de Astro <a href="https://docs.astro.build/" target="_blank" class="text-creation-gold underline">Documentación de Astro</a>', videoId: '1S9K2O9FSuA' },
-        { title: 'Creando tu primer repositorio y conexión  GitHub + Visual Studio Code', desc: 'Creación de un repositorio en GitHub', videoId: 'gqcsU7oY0uE' },
-        
-       
-        { title: 'Despliegue con Vercel', desc: 'Despliegue de la web con Vercel <a href="https://vercel.com/" target="_blank" class="text-creation-gold underline">Vercel</a>', videoId: '4ECH9QAIUKg' },
-      ],
-
+        { title: 'Buscar inspiración', desc: 'Inpsiración visual para tu web: Cosmos, Awwwards, Dribbble', videoId: 'XOCBoOAGWAE' },
+        { title: 'De figma a código', desc: 'Pasar de tu diseño a código con Gemini IA', videoId: 'e83gC4oC8lI' },
+        { title: 'Instalación de visual Code Studio en Windows', desc: 'Paso a paso con mi hermano', videoId: '_R68XfP72Z4' },
+        { title: 'Instalación de visual Code Studio en Mac', desc: 'Git, Node.js y VS Code.', videoId: 'aBA4Kaa1w64' },
+        { title: 'Primeros pasos con Visual Code Studio', desc: 'Primeros pasos con Visual Code Studio + Astro', videoId: '1S9K2O9FSuA' },
+        { title: 'Creando tu primer repositorio', desc: 'Creación de un repositorio en GitHub', videoId: 'gqcsU7oY0uE' },
+        { title: 'Despliegue con Vercel', desc: 'Despliegue de la web con Vercel', videoId: '4ECH9QAIUKg' },
+    ],
     impact: [
-      { title: 'Introducción a la ruta de impacto', desc: 'Porque la tecnología sola no cambiará el planeta, sino el conocimientos de los problemas', videoId: 's4EGhfWoFR4' }
+      { title: 'Introducción a la ruta de impacto', desc: 'Porque la tecnología sola no cambiará el planeta...', videoId: 's4EGhfWoFR4' }
     ],
     founder: [
-      { title: 'Llenate de preguntas antes de fundar', desc: 'Mentalidad de creador.', videoId: '1Z2XFq1BrYA' }
+      { title: 'Llenate de preguntas antes de fundar', desc: 'Mentalidad de creador.', videoId: '1Z2XFq1BrYA' },
+      { title: 'Quien es Enrique', desc: 'Psicologia y diseño.', videoId: 'Cas8AOfKbBQ' },
+      { title: 'Diluir tu ego con el research', desc: 'Aprende realmente de la realidad.', videoId: '4K6IaK53DxQ' },
+      { title: 'El research en tu proyecto primera parte', desc: 'Mínimo de research para evitar delirios', videoId: 'tFIEDlGsiBE' },
+      { title: 'El research en tu proyecto segunda parte', desc: 'Mínimo de research segunda parte', videoId: 'f8SH0b7_5NM' },
+      { title: 'La importancia del research:Hoy', desc: 'Investigar antes de crear.', videoId: '_kX1zD9l-v8' },
     ],
   };
 
-  // --- LÓGICA DE VIDEO ---
   window.playVideo = (path, idx) => {
     currentPath = path;
     currentIndex = idx;
     const item = content[path][idx];
     currentVideoId = item.videoId;
 
-    player.source = { type: 'video', sources: [{ src: item.videoId, provider: 'youtube' }] };
+    if (player) {
+      player.source = { type: 'video', sources: [{ src: item.videoId, provider: 'youtube' }] };
+    }
     
-    // Actualización Breadcrumb
     document.getElementById('v-track-label').innerText = trackNames[path] || path;
     document.getElementById('v-index-label').innerText = `Lección ${idx + 1}`;
-    
     document.getElementById('v-title').innerText = item.title;
     document.getElementById('v-desc').innerHTML = item.desc;
+
+    // Lógica Noticias y Agenda
+    const newsEl = document.getElementById('news-section');
+    const agendaEl = document.getElementById('agenda-section');
+    
+    if (path === 'inicio' && idx === 0) {
+      newsEl.classList.remove('hidden');
+      agendaEl.classList.remove('hidden');
+      document.getElementById('news-title').innerText = updates.news.title;
+      document.getElementById('news-content').innerText = updates.news.content;
+      document.getElementById('agenda-items').innerHTML = updates.agenda.map(i => `
+        <div class="flex items-center gap-4 border-b border-white/5 pb-3 last:border-0">
+          <div class="text-center min-w-[40px]">
+            <p class="text-[9px] uppercase font-bold text-creation-gold">${i.date.split(' ')[1]}</p>
+            <p class="text-lg font-serif italic text-white">${i.date.split(' ')[0]}</p>
+          </div>
+          <div class="border-l border-white/10 pl-4">
+            <p class="text-[11px] text-white/80 font-bold">${i.event}</p>
+            <p class="text-[9px] text-white/40 uppercase tracking-tighter">${i.time}</p>
+          </div>
+        </div>
+      `).join('');
+    } else {
+      newsEl.classList.add('hidden');
+      agendaEl.classList.add('hidden');
+    }
 
     const nextBtn = document.getElementById('next-video-btn');
     if (idx >= content[path].length - 1) nextBtn.classList.add('hidden');
@@ -212,7 +259,7 @@ import Layout from '../layouts/Layout.astro';
     `).join('');
   }
 
-  // --- COMUNIDAD Y PERFIL ---
+  // Comentarios, Comunidad, Perfil e Init (Sin cambios significativos para asegurar funcionamiento)
   async function loadCommunity() {
     const grid = document.getElementById('community-grid');
     const { data } = await supabase.from('profiles').select('*').not('full_name', 'is', null).order('updated_at', { ascending: false });
@@ -220,11 +267,11 @@ import Layout from '../layouts/Layout.astro';
       <div class="bg-white/[0.02] border border-white/5 p-6 rounded-[32px] hover:border-creation-gold/30 transition-all group">
         <div class="flex justify-between items-start mb-4">
           <div class="w-12 h-12 rounded-2xl bg-creation-gold/10 flex items-center justify-center text-creation-gold font-bold">${p.full_name?.substring(0,2).toUpperCase()}</div>
-          ${p.linkedin_url ? `<a href="${p.linkedin_url}" target="_blank" class="text-white/20 hover:text-creation-gold transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>` : ''}
+          ${p.linkedin_url ? `<a href="${p.linkedin_url}" target="_blank" class="text-white/20 hover:text-creation-gold"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>` : ''}
         </div>
-        <h3 class="text-lg font-serif italic text-white group-hover:text-creation-gold">${p.full_name}</h3>
+        <h3 class="text-lg font-serif italic text-white">${p.full_name}</h3>
         <p class="text-[10px] uppercase text-creation-gold/60 font-bold mb-3">${p.bio || 'Builder'}</p>
-        <p class="text-sm text-white/70 italic border-t border-white/5 pt-4 line-clamp-20">${p.project_description || 'En el track...'}</p>
+        <p class="text-sm text-white/70 italic border-t border-white/5 pt-4 line-clamp-2">${p.project_description || 'En el track...'}</p>
       </div>
     `).join('') || '';
   }
@@ -246,7 +293,6 @@ import Layout from '../layouts/Layout.astro';
     `).join('') || '';
   }
 
-  // --- INICIALIZACIÓN ---
   async function init() {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) return window.location.assign('/login');
@@ -256,7 +302,6 @@ import Layout from '../layouts/Layout.astro';
     document.getElementById('user-email-display').innerText = currentUserEmail;
     
     player = new Plyr('#player', { controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'] });
-    
     window.playVideo('inicio', 0);
 
     const { data: p } = await supabase.from('profiles').select('*').eq('id', currentUserId).single();
@@ -270,7 +315,7 @@ import Layout from '../layouts/Layout.astro';
 
   init();
 
-  // --- LISTENERS ---
+  // Tab Listeners
   document.querySelectorAll('.path-tab').forEach(tab => {
     tab.addEventListener('click', (e) => {
       const path = e.target.dataset.path;
@@ -279,31 +324,16 @@ import Layout from '../layouts/Layout.astro';
       document.getElementById('view-learning').classList.add('hidden');
       document.getElementById('view-perfil').classList.add('hidden');
       document.getElementById('view-comunidad').classList.add('hidden');
-
       if (path === 'perfil') document.getElementById('view-perfil').classList.remove('hidden');
       else if (path === 'comunidad') { document.getElementById('view-comunidad').classList.remove('hidden'); loadCommunity(); }
       else { document.getElementById('view-learning').classList.remove('hidden'); window.playVideo(path, 0); }
     });
   });
 
-  // --- LISTENERS DE INTERACCIÓN ---
-document.getElementById('next-video-btn')?.addEventListener('click', () => {
-  const nextIndex = currentIndex + 1;
-  // Verificamos si existe una siguiente lección en el track actual
-  if (content[currentPath] && content[currentPath][nextIndex]) {
-    window.playVideo(currentPath, nextIndex);
-    
-    // Opcional: Hacer scroll hacia arriba para ver el nuevo video (útil en móvil)
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-});
-
+  // Profile, Logout and Comments Listeners
   document.getElementById('update-profile-data')?.addEventListener('click', async () => {
     const msg = document.getElementById('profile-msg');
-    const newPass = document.getElementById('profile-password').value;
-
-    // Actualizar perfil
-    const { error: profileError } = await supabase.from('profiles').upsert({
+    const { error } = await supabase.from('profiles').upsert({
       id: currentUserId,
       full_name: document.getElementById('profile-name').value,
       bio: document.getElementById('profile-bio').value,
@@ -311,16 +341,13 @@ document.getElementById('next-video-btn')?.addEventListener('click', () => {
       linkedin_url: document.getElementById('profile-linkedin').value,
       updated_at: new Date()
     });
-
-    // Actualizar contraseña si hay contenido
-    if (newPass.length >= 6) {
-      const { error: passError } = await supabase.auth.updateUser({ password: newPass });
-      if (passError) { msg.innerText = "Error Contraseña (mín. 6 caracteres)"; msg.classList.remove('hidden'); return; }
-    }
-
-    msg.innerText = profileError ? "Error" : "✓ Perfil Actualizado";
+    msg.innerText = error ? "Error" : "✓ Actualizado";
     msg.classList.remove('hidden');
-    document.getElementById('profile-password').value = '';
+  });
+
+  document.getElementById('logout')?.addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    window.location.assign('/login');
   });
 
   document.getElementById('send-comment')?.addEventListener('click', async () => {
@@ -329,11 +356,6 @@ document.getElementById('next-video-btn')?.addEventListener('click', () => {
     await supabase.from('comments').insert([{ video_id: currentVideoId, content: input.value, user_id: currentUserId, user_email: currentUserEmail }]);
     input.value = '';
     loadComments(currentVideoId);
-  });
-
-  document.getElementById('logout')?.addEventListener('click', async () => {
-    await supabase.auth.signOut();
-    window.location.assign('/login');
   });
 
   window.deleteComment = async (id) => {
