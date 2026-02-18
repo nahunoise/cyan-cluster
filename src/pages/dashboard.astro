@@ -162,7 +162,7 @@ import Layout from '../layouts/Layout.astro';
       content: ": Enrique nos explica la importancia de investigar para crear mejor y nos comparte su ofrenda personal, un ritual que lo conecta con su proceso creativo y con la comunidad."
     },
     agenda: [
-      { date: "18 Feb", event: "Nacimiento The Creation Society", time: "18:00 hrs(GMT+1)" },
+      
       { date: "18 Mar", event: "Sesion Q&A The Creaion Society ", time: "18:00 hrs(GMT+1)" },
       { date: "3 Abril", event: "Graduación Cohorte 1", time: "18:00 hrs (GMT+1)" }
     ]
@@ -173,6 +173,7 @@ import Layout from '../layouts/Layout.astro';
         { title: 'Bienvenida', desc: 'Bienvenido al programa.', videoId: 'UIByRox2g6k' },
         { title: 'El valor del autoaprendizaje', desc: 'Reflexiones fundamentales.', videoId: 'gq8MR_JuRG0' },
         { title: 'Rituales y espacios para compartir', desc: 'Whatsapp para notificar, aquí para compartir y Discord para algo más informal', videoId: 'xwDVf97Hf58' },
+        { title: 'La ruta de todo el 2026', desc: 'Esta es mi propuesta, juntos creo que llegamos', videoId: '56PThCJfxRk' },
     ],
     creation: [
         { title: 'Setup Builders', desc: 'Las herramientas que usaremos ahora, GitHub, VS Code, Vercel y Astro.', videoId: 'wlajYcIHipA' },
@@ -248,16 +249,26 @@ import Layout from '../layouts/Layout.astro';
     loadComments(currentVideoId);
   };
 
-  function renderPath(pathKey) {
-    const container = document.getElementById('path-container');
-    if (!container) return;
-    container.innerHTML = content[pathKey].map((c, i) => `
-      <button onclick="window.playVideo('${pathKey}', ${i})" class="video-card w-full text-left p-3 rounded-2xl flex items-center gap-3 group ${i === currentIndex ? 'bg-white/5 border border-white/10' : ''}">
-        <div class="w-6 h-6 rounded-full ${i === currentIndex ? 'bg-creation-gold text-black' : 'bg-white/5 text-creation-gold'} flex items-center justify-center text-[8px] font-bold group-hover:bg-creation-gold group-hover:text-black transition-all shrink-0">${i+1}</div>
-        <h4 class="text-[12px] font-bold ${i === currentIndex ? 'text-creation-gold' : 'text-white/70'} group-hover:text-white">${c.title}</h4>
-      </button>
-    `).join('');
-  }
+ // Una versión minimalista de la lista lateral
+function renderPath(pathKey) {
+  const container = document.getElementById('path-container');
+  if (!container) return;
+  container.innerHTML = content[pathKey].map((c, i) => `
+    <button onclick="window.playVideo('${pathKey}', ${i})" 
+      class="video-card w-full text-left p-3 rounded-2xl flex items-center gap-3 group 
+      ${i === currentIndex ? 'bg-creation-gold/10 border border-creation-gold/30' : 'hover:bg-white/5'} transition-all">
+      
+      <div class="w-6 h-6 rounded-full flex items-center justify-center text-[8px] font-bold shrink-0 
+        ${i === currentIndex ? 'bg-creation-gold text-black' : 'bg-white/10 text-creation-gold'}">
+        ${i === currentIndex ? '▶' : i + 1}
+      </div>
+      
+      <h4 class="text-[12px] font-bold ${i === currentIndex ? 'text-creation-gold' : 'text-white/70'}">
+        ${c.title}
+      </h4>
+    </button>
+  `).join('');
+}
 
   // Comentarios, Comunidad, Perfil e Init (Sin cambios significativos para asegurar funcionamiento)
   async function loadCommunity() {
